@@ -1,11 +1,11 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=master"
+  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=init"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
   standard_transition_days = "${var.logs_standard_transition_days}"
-  glacier_transition_days  = "${var.logs.glacier_transition_days}"
-  expiration_days          = "${var.logs.expiration_days}"
+  glacier_transition_days  = "${var.logs_glacier_transition_days}"
+  expiration_days          = "${var.logs_expiration_days}"
 }
 
 module "default_label" {
@@ -19,7 +19,7 @@ module "default_label" {
 }
 
 resource "aws_s3_bucket" "default" {
-  bucket        = "${var.hostname}"
+  bucket        = "${module.default_label.id}"
   acl           = "public-read"
   tags          = "${module.default_label.tags}"
   region        = "${var.region}"
@@ -31,9 +31,12 @@ resource "aws_s3_bucket" "default" {
   }
 
   website {
-    index_document           = "${var.index_document}"
-    error_document           = "${var.error_document}"
-    redirect_all_requests_to = "${var.redirect_all_requests_to}"
+    #Required, unless using redirect_all_requests_to
+    index_document = "${var.index_document}"
+    error_document = "${var.error_document}"
+
+    # conflict with index_document
+    #redirect_all_requests_to = "${var.redirect_all_requests_to}"
   }
 
   cors_rule {
