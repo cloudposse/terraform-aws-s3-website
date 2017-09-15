@@ -12,6 +12,8 @@ variable "delimiter" {
   default = "-"
 }
 
+variable "hostname" {}
+
 variable "dns_zone_id" {
   description = "(optional) DNS zone to register DNS. Leave blank to disable DNS registration."
   default     = ""

@@ -1,5 +1,5 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=init"
+  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=0.1.0"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
