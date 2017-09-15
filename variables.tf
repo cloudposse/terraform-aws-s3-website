@@ -23,6 +23,14 @@ variable "index_document" {
   default = "index.html"
 }
 
+variable "error_document" {
+  default = "404.html"
+}
+
+variable "routing_rules" {
+  default = ""
+}
+
 variable "cors_allowed_headers" {
   type    = "list"
   default = ["*"]
@@ -60,10 +68,6 @@ variable "logs_glacier_transition_days" {
 variable "logs_expiration_days" {
   description = "Number of days after which to expunge the objects"
   default     = "90"
-}
-
-variable "error_document" {
-  default = "404.html"
 }
 
 variable "lifecycle_rule_enabled" {
