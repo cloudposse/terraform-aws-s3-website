@@ -72,17 +72,17 @@ variable "prefix" {
   default = ""
 }
 
-variable "noncurrent_version_transition_days" {}
+variable "noncurrent_version_transition_days" {
+  default = "30"
+}
+
+variable "noncurrent_version_expiration_days" {
+  default = "90"
+}
 
 variable "region" {
   default = ""
 }
-
-# variable "redirect_all_requests_to" {
-#   default = ""
-# }
-
-variable "noncurrent_version_expiration_days" {}
 
 variable "versioning_enabled" {
   default = ""

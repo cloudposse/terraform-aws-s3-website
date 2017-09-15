@@ -19,7 +19,7 @@ module "default_label" {
 }
 
 resource "aws_s3_bucket" "default" {
-  bucket        = "${module.default_label.id}"
+  bucket        = "${var.hostname}"
   acl           = "public-read"
   tags          = "${module.default_label.tags}"
   region        = "${var.region}"
@@ -31,12 +31,8 @@ resource "aws_s3_bucket" "default" {
   }
 
   website {
-    #Required, unless using redirect_all_requests_to
     index_document = "${var.index_document}"
     error_document = "${var.error_document}"
-
-    # conflict with index_document
-    #redirect_all_requests_to = "${var.redirect_all_requests_to}"
   }
 
   cors_rule {
@@ -54,17 +50,16 @@ resource "aws_s3_bucket" "default" {
   lifecycle_rule {
     id      = "${module.default_label.id}"
     enabled = "${var.lifecycle_rule_enabled}"
-
-    prefix = "${var.prefix}"
-    tags   = "${module.default_label.tags}"
-
-    noncurrent_version_expiration {
-      days = "${var.noncurrent_version_expiration_days}"
-    }
+    prefix  = "${var.prefix}"
+    tags    = "${module.default_label.tags}"
 
     noncurrent_version_transition {
       days          = "${var.noncurrent_version_transition_days}"
       storage_class = "GLACIER"
+    }
+
+    noncurrent_version_expiration {
+      days = "${var.noncurrent_version_expiration_days}"
     }
   }
 }
