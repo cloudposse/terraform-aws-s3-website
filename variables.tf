@@ -1,12 +1,18 @@
 variable "name" {}
 
-variable "namespage" {}
+variable "namespace" {}
 
 variable "stage" {}
 
 variable "tags" {
   default = {}
 }
+
+variable "delimiter" {
+  default = "-"
+}
+
+variable "hostname" {}
 
 variable "dns_zone_id" {
   description = "(optional) DNS zone to register DNS. Leave blank to disable DNS registration."
@@ -39,4 +45,51 @@ variable "cors_expose_headers" {
 
 variable "cors_max_age_seconds" {
   default = "3600"
+}
+
+variable "logs_standard_transition_days" {
+  description = "Number of days to persist in the standard storage tier before moving to the glacier tier"
+  default     = "30"
+}
+
+variable "logs_glacier_transition_days" {
+  description = "Number of days after which to move the data to the glacier storage tier"
+  default     = "60"
+}
+
+variable "logs_expiration_days" {
+  description = "Number of days after which to expunge the objects"
+  default     = "90"
+}
+
+variable "error_document" {
+  default = "404.html"
+}
+
+variable "lifecycle_rule_enabled" {
+  default = ""
+}
+
+variable "prefix" {
+  default = ""
+}
+
+variable "noncurrent_version_transition_days" {
+  default = "30"
+}
+
+variable "noncurrent_version_expiration_days" {
+  default = "90"
+}
+
+variable "region" {
+  default = ""
+}
+
+variable "versioning_enabled" {
+  default = ""
+}
+
+variable "force_destroy" {
+  default = ""
 }

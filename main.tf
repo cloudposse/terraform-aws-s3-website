@@ -1,11 +1,11 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=master"
+  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=0.1.0"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
   standard_transition_days = "${var.logs_standard_transition_days}"
-  glacier_transition_days  = "${var.logs.glacier_transition_days}"
-  expiration_days          = "${var.logs.expiration_days}"
+  glacier_transition_days  = "${var.logs_glacier_transition_days}"
+  expiration_days          = "${var.logs_expiration_days}"
 }
 
 module "default_label" {
@@ -31,9 +31,8 @@ resource "aws_s3_bucket" "default" {
   }
 
   website {
-    index_document           = "${var.index_document}"
-    error_document           = "${var.error_document}"
-    redirect_all_requests_to = "${var.redirect_all_requests_to}"
+    index_document = "${var.index_document}"
+    error_document = "${var.error_document}"
   }
 
   cors_rule {
@@ -51,17 +50,16 @@ resource "aws_s3_bucket" "default" {
   lifecycle_rule {
     id      = "${module.default_label.id}"
     enabled = "${var.lifecycle_rule_enabled}"
-
-    prefix = "${var.prefix}"
-    tags   = "${module.default_label.tags}"
-
-    noncurrent_version_expiration {
-      days = "${var.noncurrent_version_expiration_days}"
-    }
+    prefix  = "${var.prefix}"
+    tags    = "${module.default_label.tags}"
 
     noncurrent_version_transition {
       days          = "${var.noncurrent_version_transition_days}"
       storage_class = "GLACIER"
+    }
+
+    noncurrent_version_expiration {
+      days = "${var.noncurrent_version_expiration_days}"
     }
   }
 }
