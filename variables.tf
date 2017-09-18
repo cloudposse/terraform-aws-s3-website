@@ -73,7 +73,7 @@ variable "logs_expiration_days" {
 }
 
 variable "lifecycle_rule_enabled" {
-  default = false
+  default = ""
 }
 
 variable "prefix" {
@@ -93,7 +93,7 @@ variable "region" {
 }
 
 variable "versioning_enabled" {
-  default = true
+  default = ""
 }
 
 variable "force_destroy" {
