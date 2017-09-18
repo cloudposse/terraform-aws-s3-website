@@ -9,11 +9,12 @@ Terraform Module for Creating S3 backed Websites
 ## Usage
 
 module "website" {
-  source     = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  name       = "${var.name}"
-  hostname   = "${var.hostname}"
+  source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
+  namespace   = "${var.namespace}"
+  stage       = "${var.stage}"
+  name        = "${var.name}"
+  hostname    = "${var.hostname}"
+  dns_zone_id = "${var.dns_zone_id}"
 }
 
 ## Variables
@@ -26,11 +27,11 @@ module "website" {
 | `attributes`                        | `[]`           | Additional attributes (e.g. `policy` or `role`)                                                                 | No       |
 | `tags`                              | `{}`           | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                                              | No       |
 | `delimiter`                         | `-`            | Delimiter to be used between `name`, `namespace`, `stage`, `arguments`, etc.                                    | No       |
-| `hostname`                          | `[]`           | Name of website bucket in `fqdn` format                                                                         | Yes      |
-| `dns_zone_id`                       | ``             | DNS zone to register DNS                                                                                        | No       |
+| `hostname`                          | `[]`           | Name of website bucket in `fqdn` format (e.g. `test.example.com`). IMPORTANT! Do not add trailing dot (`.`)     | Yes      |
+| `dns_zone_id`                       | ``             | ID of the hosted zone to contain the record                                                                     | Yes      |
 | `error_document`                    | `404.html`     | An absolute path to the document to return in case of a 4XX error                                               | No       |
 | `index_document`                    | `index.html`   | Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders        | No       |
-| `force_destroy`                     | ``             | Delete all objects from the bucket so that the bucket can be destroyed without error (e.g. `true` or `false`)  | No       |
+| `force_destroy`                     | ``             | Delete all objects from the bucket so that the bucket can be destroyed without error (e.g. `true` or `false`)   | No       |
 | `lifecycle_rule_enabled`            | ``             | Lifecycle rule status (e.g. `true` or `false`)                                                                  | No       |
 | `noncurrent_version_transition_days`| `30`           | Number of days to persist in the standard storage tier before moving to the glacier tier infrequent access tier | No       |
 | `noncurrent_version_expiration_days`| `90`           | Specifies when noncurrent object versions expire                                                                | No       |

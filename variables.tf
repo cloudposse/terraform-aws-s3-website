@@ -13,12 +13,10 @@ variable "delimiter" {
 }
 
 variable "hostname" {
-  default = ""
 }
 
 variable "dns_zone_id" {
-  description = "(optional) DNS zone to register DNS. Leave blank to disable DNS registration."
-  default     = ""
+  description = "ID of the hosted zone to contain the record"
 }
 
 variable "index_document" {
