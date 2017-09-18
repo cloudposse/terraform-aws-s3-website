@@ -38,11 +38,11 @@ module "default_label" {
 | `standard_transition_days`          | `30`           | Number of days to persist in the standard storage tier before moving to the glacier tier                        | No       |
 | `glacier_transition_days`           | `60`           | Number of days to persist in the standard storage tier before moving to the infrequent access                   | No       |
 | `expiration_days`                   | `90`           | Number of days after which to expunge the objects                                                               | No       |
-| `cors_allowed_headers`              | `["*"]`        | Allowed headers                                                                                                 | No       |
-| `cors_allowed_methods`              | `["GET"]`      | Allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)                                                          | No       |
-| `cors_allowed_origins`              | `["*"]`        | Allowed origins (e.g. ` GET, PUT, POST, DELETE, HEAD`)                                                          | No       |
+| `cors_allowed_headers`              | `["*"]`        | List of allowed headers                                                                                         | No       |
+| `cors_allowed_methods`              | `["GET"]`      | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)                                                  | No       |
+| `cors_allowed_origins`              | `["*"]`        | List of allowed origins (e.g. ` example.com, test.com`)                                                         | No       |
 | `cors_max_age_seconds`              | `3600`         | Time in seconds that browser can cache the response                                                             | No       |
-| `cors_expose_headers`               | `["ETag"]`     | Expose header in the response                                                                                   | No       |
+| `cors_expose_headers`               | `["ETag"]`     | List of expose header in the response                                                                           | No       |
 | `prefix`                            | ``             | Prefix identifying one or more objects to which the rule applies                                                | No       |
 | `region`                            | ``             | AWS region this bucket should reside in                                                                         | No       |
 | `routing_rules`                     | ``             | Redirect behavior and when redirects are applied                                                                | No       |
