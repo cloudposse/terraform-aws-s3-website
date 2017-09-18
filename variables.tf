@@ -12,7 +12,9 @@ variable "delimiter" {
   default = "-"
 }
 
-variable "hostname" {}
+variable "hostname" {
+  default = ""
+}
 
 variable "dns_zone_id" {
   description = "(optional) DNS zone to register DNS. Leave blank to disable DNS registration."
@@ -43,7 +45,7 @@ variable "cors_allowed_methods" {
 
 variable "cors_allowed_origins" {
   type    = "list"
-  default = []
+  default = ["*"]
 }
 
 variable "cors_expose_headers" {
