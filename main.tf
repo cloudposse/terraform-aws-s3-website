@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "dns" {
-  source          = "git::https://github.com/cloudposse/tf_vanity?ref=tags/0.2.0"
+  source          = "git::https://github.com/cloudposse/tf_vanity.git?ref=tags/0.2.0"
   aliases         = "${list(signum(length(var.dns_zone_id)) > 0 ? var.hostname : var.dns_zone_id )}"
   parent_zone_id  = "${var.dns_zone_id}"
   target_dns_name = "${aws_s3_bucket.default.website_domain}"
