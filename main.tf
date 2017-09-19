@@ -1,5 +1,5 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=0.1.0"
+  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=tags/0.1.0"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
@@ -84,9 +84,9 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "dns" {
-  source          = "git::https://github.com/cloudposse/tf_vanity?ref=tags/0.2.0"
-  aliases         = "${var.dns_zone_id ? list(var.hostname) : list()}"
-  zone_id         = "${var.dns_zone_id}"
-  target_dns_name = "${aws_s3_bucket.default.bucket_domain_name}"
+  source          = "git::https://github.com/cloudposse/tf_vanity.git?ref=tags/0.2.0"
+  aliases         = "${list(var.hostname)}"
+  parent_zone_id  = "${var.dns_zone_id}"
+  target_dns_name = "${aws_s3_bucket.default.website_domain}"
   target_zone_id  = "${aws_s3_bucket.default.hosted_zone_id}"
 }
