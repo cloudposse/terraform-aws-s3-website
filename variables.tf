@@ -12,11 +12,11 @@ variable "delimiter" {
   default = "-"
 }
 
-variable "hostname" {
-}
+variable "hostname" {}
 
 variable "dns_zone_id" {
   description = "ID of the hosted zone to contain the record"
+  default     = ""
 }
 
 variable "index_document" {
@@ -96,4 +96,9 @@ variable "versioning_enabled" {
 
 variable "force_destroy" {
   default = ""
+}
+
+variable "dns_zone_name" {
+  description = "Name of the hosted zone to contain the record"
+  default     = ""
 }

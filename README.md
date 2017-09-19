@@ -8,8 +8,23 @@ Terraform Module for Creating S3 backed Websites
 
 ## Usage
 
+#### Create s3 website bucket
 ```terraform
 module "website" {
+  source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
+  namespace   = "${var.namespace}"
+  stage       = "${var.stage}"
+  name        = "${var.name}"
+  hostname    = "${var.hostname}"
+}
+```
+
+#### Create s3 website bucket with associated CNAME of your (sub)domain hosted in Route53
+
+* Required one of the `dns_zone_id` or `dns_zone_name`
+
+```terraform
+module "website_with_cname" {
   source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
   namespace   = "${var.namespace}"
   stage       = "${var.stage}"
@@ -18,6 +33,7 @@ module "website" {
   dns_zone_id = "${var.dns_zone_id}"
 }
 ```
+
 
 ## Variables
 
@@ -30,7 +46,8 @@ module "website" {
 | `tags`                              | `{}`           | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                                              | No       |
 | `delimiter`                         | `-`            | Delimiter to be used between `name`, `namespace`, `stage`, `arguments`, etc.                                    | No       |
 | `hostname`                          | `[]`           | Name of website bucket in `fqdn` format (e.g. `test.example.com`). IMPORTANT! Do not add trailing dot (`.`)     | Yes      |
-| `dns_zone_id`                       | ``             | ID of the hosted zone to contain the record                                                                     | Yes      |
+| `dns_zone_id`                       | ``             | ID of the hosted zone to contain the record                                                                     | No       |
+| `dns_zone_name`                     | ``             | Name of the hosted zone to contain the record                                                                   | No       |
 | `error_document`                    | `404.html`     | An absolute path to the document to return in case of a 4XX error                                               | No       |
 | `index_document`                    | `index.html`   | Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders        | No       |
 | `force_destroy`                     | ``             | Delete all objects from the bucket so that the bucket can be destroyed without error (e.g. `true` or `false`)   | No       |
