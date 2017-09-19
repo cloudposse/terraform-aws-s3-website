@@ -8,7 +8,8 @@ Terraform Module for Creating S3 backed Websites
 
 ## Usage
 
-module "website" {
+```terraform
+  module "website" {
   source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
   namespace   = "${var.namespace}"
   stage       = "${var.stage}"
@@ -16,6 +17,7 @@ module "website" {
   hostname    = "${var.hostname}"
   dns_zone_id = "${var.dns_zone_id}"
 }
+```
 
 ## Variables
 
