@@ -11,7 +11,7 @@ Terraform Module for Creating S3 backed Websites
 #### Create s3 website bucket
 ```terraform
 module "website" {
-  source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
+  source      = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
   namespace   = "${var.namespace}"
   stage       = "${var.stage}"
   name        = "${var.name}"
@@ -25,7 +25,7 @@ module "website" {
 
 ```terraform
 module "website_with_cname" {
-  source         = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
+  source         = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
   namespace      = "${var.namespace}"
   stage          = "${var.stage}"
   name           = "${var.name}"
