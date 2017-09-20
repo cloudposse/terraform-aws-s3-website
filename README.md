@@ -23,7 +23,7 @@ module "website" {
 
 * Required one of the `parent_zone_id` or `parent_zone_name`
 
-```terraform
+```hcl
 module "website_with_cname" {
   source         = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
   namespace      = "${var.namespace}"
