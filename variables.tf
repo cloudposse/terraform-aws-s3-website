@@ -14,8 +14,13 @@ variable "delimiter" {
 
 variable "hostname" {}
 
-variable "dns_zone_id" {
+variable "parent_zone_id" {
   description = "ID of the hosted zone to contain the record"
+  default     = ""
+}
+
+variable "parent_zone_name" {
+  description = "Name of the hosted zone to contain the record"
   default     = ""
 }
 
@@ -96,9 +101,4 @@ variable "versioning_enabled" {
 
 variable "force_destroy" {
   default = ""
-}
-
-variable "dns_zone_name" {
-  description = "Name of the hosted zone to contain the record"
-  default     = ""
 }
