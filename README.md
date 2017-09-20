@@ -19,7 +19,7 @@ module "website" {
 }
 ```
 
-#### Create s3 website bucket with associated CNAME of your (sub)domain hosted in Route53
+#### Create S3 Website Bucket with Route53 DNS
 
 * Required one of the `parent_zone_id` or `parent_zone_name`
 
@@ -33,7 +33,6 @@ module "website_with_cname" {
   parent_zone_id = "${var.parent_zone_id}"
 }
 ```
-
 
 ## Variables
 
@@ -66,7 +65,6 @@ module "website_with_cname" {
 | `logs_standard_transition_days`     | `30`           | Number of days to persist in the standard storage tier before moving to the glacier tier                        | No       |
 | `logs_glacier_transition_days`      | `60`           | Number of days after which to move the data to the glacier storage tier                                         | No       |
 | `logs_expiration_days`              | `90`           | Number of days after which to expunge the objects                                                               | No       |
-
 
 ## Outputs
 
