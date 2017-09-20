@@ -21,16 +21,16 @@ module "website" {
 
 #### Create s3 website bucket with associated CNAME of your (sub)domain hosted in Route53
 
-* Required one of the `dns_zone_id` or `dns_zone_name`
+* Required one of the `parent_zone_id` or `parent_zone_name`
 
 ```terraform
 module "website_with_cname" {
-  source      = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
-  namespace   = "${var.namespace}"
-  stage       = "${var.stage}"
-  name        = "${var.name}"
-  hostname    = "${var.hostname}"
-  dns_zone_id = "${var.dns_zone_id}"
+  source         = "git::https://github.com/cloudposse/tf_s3_website.git?ref=master"
+  namespace      = "${var.namespace}"
+  stage          = "${var.stage}"
+  name           = "${var.name}"
+  hostname       = "${var.hostname}"
+  parent_zone_id = "${var.parent_zone_id}"
 }
 ```
 
