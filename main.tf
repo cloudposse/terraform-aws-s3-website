@@ -1,5 +1,5 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/tf_log_storage.git?ref=tags/0.1.0"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.1.2"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
@@ -9,7 +9,7 @@ module "logs" {
 }
 
 module "default_label" {
-  source     = "git::https://github.com/cloudposse/tf_label.git?ref=tags/0.2.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.1"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "dns" {
-  source           = "git::https://github.com/cloudposse/tf_vanity.git?ref=tags/0.2.0"
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.2.2"
   aliases          = "${compact(list(signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""))}"
   parent_zone_id   = "${var.parent_zone_id}"
   parent_zone_name = "${var.parent_zone_name}"
