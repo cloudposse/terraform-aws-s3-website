@@ -9,7 +9,7 @@ Terraform Module for Creating S3 backed Websites
 ## Usage
 
 #### Create s3 website bucket
-```terraform
+```hcl
 module "website" {
   source      = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
   namespace   = "${var.namespace}"
@@ -23,7 +23,7 @@ module "website" {
 
 * Required one of the `parent_zone_id` or `parent_zone_name`
 
-```terraform
+```hcl
 module "website_with_cname" {
   source         = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
   namespace      = "${var.namespace}"
