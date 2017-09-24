@@ -1,14 +1,16 @@
-# tf_s3_website
+# terraform-aws-s3-website
 
-Terraform Module for Creating S3 backed Websites
+Terraform module for Creating S3 backed Websites
 
 ## Further Reading
 
 * http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html
 
+
 ## Usage
 
 #### Create s3 website bucket
+
 ```hcl
 module "website" {
   source      = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
@@ -33,6 +35,7 @@ module "website_with_cname" {
   parent_zone_id = "${var.parent_zone_id}"
 }
 ```
+
 
 ## Variables
 
@@ -66,6 +69,7 @@ module "website_with_cname" {
 | `logs_glacier_transition_days`      | `60`           | Number of days after which to move the data to the glacier storage tier                                         | No       |
 | `logs_expiration_days`              | `90`           | Number of days after which to expunge the objects                                                               | No       |
 
+
 ## Outputs
 
 | Name                           | Description                                                 |
@@ -73,3 +77,8 @@ module "website_with_cname" {
 | `hostname`                     | Assigned DNS-record to the DNS-record of website bucket     |
 | `s3_bucket_domain_name`        | DNS-record of website bucket                                |
 | `s3_bucket_name`               | Name of of website bucket                                   |
+
+
+## License
+
+Apache 2 License. See [`LICENSE`](LICENSE) for full details.
