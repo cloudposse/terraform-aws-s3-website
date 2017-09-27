@@ -5,7 +5,7 @@ variable "namespace" {}
 variable "stage" {}
 
 variable "tags" {
-  type = "map"
+  type    = "map"
   default = {}
 }
 
@@ -94,6 +94,12 @@ variable "noncurrent_version_expiration_days" {
 
 variable "region" {
   default = ""
+}
+
+variable "masters" {
+  type        = "map"
+  default     = {}
+  description = "Masters to accept replication from. Where key - account iam arn and value - source bucket name"
 }
 
 variable "versioning_enabled" {

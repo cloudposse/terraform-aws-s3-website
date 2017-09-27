@@ -71,7 +71,7 @@ resource "aws_s3_bucket_policy" "default" {
 }
 
 data "aws_iam_policy_document" "default" {
-  statement {
+  statement = [{
     actions = ["s3:GetObject"]
 
     resources = ["${aws_s3_bucket.default.arn}/*"]
@@ -80,6 +80,31 @@ data "aws_iam_policy_document" "default" {
       type        = "AWS"
       identifiers = ["*"]
     }
+  }]
+
+  statement = ["${flatten(data.aws_iam_policy_document.master.*.statement)}"]
+}
+
+data "aws_iam_policy_document" "master" {
+  count = "${length(var.masters)}"
+
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["${format("arn:aws:iam::%v:root", element(keys(var.masters), count.index))}"]
+    }
+
+    actions = [
+      "s3:GetBucketVersioning",
+      "s3:PutBucketVersioning",
+      "s3:ReplicateObject",
+      "s3:ReplicateDelete",
+    ]
+
+    resources = [
+      "${format("arn:aws:s3:::%v",   lookup(var.masters, element(keys(var.masters), count.index)))}",
+      "${format("arn:aws:s3:::%v/*", lookup(var.masters, element(keys(var.masters), count.index)))}",
+    ]
   }
 }
 
