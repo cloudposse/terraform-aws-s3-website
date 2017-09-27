@@ -63,6 +63,7 @@ resource "aws_s3_bucket" "default" {
       days = "${var.noncurrent_version_expiration_days}"
     }
   }
+
 }
 
 resource "aws_s3_bucket_policy" "default" {

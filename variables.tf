@@ -99,8 +99,9 @@ variable "region" {
 variable "master_aws_account_ids" {
   type        = "list"
   default     = []
-  description = "Masters to accept replication from. Where key - account iam arn and value - source bucket name"
+  description = "List of AWS IAM ID of owner for replication source bucket."
 }
+
 
 variable "versioning_enabled" {
   default = ""
