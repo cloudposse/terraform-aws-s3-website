@@ -96,9 +96,9 @@ variable "region" {
   default = ""
 }
 
-variable "masters" {
-  type        = "map"
-  default     = {}
+variable "master_aws_account_ids" {
+  type        = "list"
+  default     = []
   description = "Masters to accept replication from. Where key - account iam arn and value - source bucket name"
 }
 

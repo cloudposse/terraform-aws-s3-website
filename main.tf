@@ -86,12 +86,12 @@ data "aws_iam_policy_document" "default" {
 }
 
 data "aws_iam_policy_document" "master" {
-  count = "${length(var.masters)}"
+  count = "${signum(length(var.master_aws_account_ids))}"
 
   statement {
     principals {
-      type        = "AWS"
-      identifiers = ["${format("arn:aws:iam::%v:root", element(keys(var.masters), count.index))}"]
+      type = "AWS"
+      identifiers = ["${formatlist("arn:aws:iam::%v:root", var.master_aws_account_ids)}"]
     }
 
     actions = [
@@ -102,8 +102,8 @@ data "aws_iam_policy_document" "master" {
     ]
 
     resources = [
-      "${format("arn:aws:s3:::%v",   lookup(var.masters, element(keys(var.masters), count.index)))}",
-      "${format("arn:aws:s3:::%v/*", lookup(var.masters, element(keys(var.masters), count.index)))}",
+      "${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/*",
     ]
   }
 }
