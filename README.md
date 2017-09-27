@@ -68,7 +68,7 @@ module "website_with_cname" {
 | `logs_standard_transition_days`     | `30`           | Number of days to persist in the standard storage tier before moving to the glacier tier                        | No       |
 | `logs_glacier_transition_days`      | `60`           | Number of days after which to move the data to the glacier storage tier                                         | No       |
 | `logs_expiration_days`              | `90`           | Number of days after which to expunge the objects                                                               | No       |
-
+| `masters`                           | `{}`           | Source bucket name and AWS IAM ID of owner for replication. In format map { "$id" = "$bucket_name" }            | No       |
 
 ## Outputs
 
