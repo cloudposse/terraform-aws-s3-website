@@ -5,7 +5,7 @@ variable "namespace" {}
 variable "stage" {}
 
 variable "tags" {
-  type = "map"
+  type    = "map"
   default = {}
 }
 
@@ -102,4 +102,10 @@ variable "versioning_enabled" {
 
 variable "force_destroy" {
   default = ""
+}
+
+variable "deployment_arns" {
+  description = "(Optional) List of ARNs permitted to deploy to this bucket (read/write access)"
+  type    = "list"
+  default = []
 }

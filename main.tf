@@ -65,12 +65,12 @@ resource "aws_s3_bucket" "default" {
   }
 }
 
-resource "aws_s3_bucket_policy" "default" {
+resource "aws_s3_bucket_policy" "public" {
   bucket = "${aws_s3_bucket.default.id}"
-  policy = "${data.aws_iam_policy_document.default.json}"
+  policy = "${data.aws_iam_policy_document.public.json}"
 }
 
-data "aws_iam_policy_document" "default" {
+data "aws_iam_policy_document" "public" {
   statement {
     actions = ["s3:GetObject"]
 
@@ -79,6 +79,29 @@ data "aws_iam_policy_document" "default" {
     principals {
       type        = "AWS"
       identifiers = ["*"]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "deployment" {
+  count  = "${length(var.deployment_arns)}"
+  bucket = "${aws_s3_bucket.default.id}"
+  policy = "${elemetn(data.aws_iam_policy_document.deployment.*.json, count.index)}"
+}
+
+data "aws_iam_policy_document" "deployment" {
+  count = "${length(var.deployment_arns)}"
+
+  statement {
+    actions = ["s3:*"]
+
+    resources = ["${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/*",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${var.deployment_arns}"]
     }
   }
 }
