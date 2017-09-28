@@ -4,6 +4,11 @@ variable "namespace" {}
 
 variable "stage" {}
 
+variable "attributes" {
+  type    = "list"
+  default = []
+}
+
 variable "tags" {
   type    = "map"
   default = {}
