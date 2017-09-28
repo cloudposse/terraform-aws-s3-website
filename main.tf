@@ -65,12 +65,15 @@ resource "aws_s3_bucket" "default" {
   }
 }
 
-resource "aws_s3_bucket_policy" "public" {
+# AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
+# https://github.com/hashicorp/terraform/issues/10543
+resource "aws_s3_bucket_policy" "default" {
   bucket = "${aws_s3_bucket.default.id}"
-  policy = "${data.aws_iam_policy_document.public.json}"
+  policy = "${data.aws_iam_policy_document.default.json}"
 }
 
-data "aws_iam_policy_document" "public" {
+data "aws_iam_policy_document" "default" {
+  # Allow public access to this bucket (website)
   statement {
     actions = ["s3:GetObject"]
 
@@ -81,17 +84,8 @@ data "aws_iam_policy_document" "public" {
       identifiers = ["*"]
     }
   }
-}
 
-resource "aws_s3_bucket_policy" "deployment" {
-  count  = "${signum(length(var.deployment_arns))}"
-  bucket = "${aws_s3_bucket.default.id}"
-  policy = "${join("", data.aws_iam_policy_document.deployment.*.json)}"
-}
-
-data "aws_iam_policy_document" "deployment" {
-  count = "${signum(length(var.deployment_arns))}"
-
+  # Support deployment ARNs
   statement {
     actions = ["s3:*"]
 
