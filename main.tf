@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "public" {
 resource "aws_s3_bucket_policy" "deployment" {
   count  = "${length(var.deployment_arns)}"
   bucket = "${aws_s3_bucket.default.id}"
-  policy = "${elemetn(data.aws_iam_policy_document.deployment.*.json, count.index)}"
+  policy = "${element(data.aws_iam_policy_document.deployment.*.json, count.index)}"
 }
 
 data "aws_iam_policy_document" "deployment" {
