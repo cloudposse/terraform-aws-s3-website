@@ -106,6 +106,12 @@ variable "force_destroy" {
 
 variable "deployment_arns" {
   description = "(Optional) List of ARNs permitted to deploy to this bucket (read/write access)"
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
+}
+
+variable "deployment_actions" {
+  description = "List of actions to permit deployment ARNs to perform"
+  type        = "list"
+  default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
 }

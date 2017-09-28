@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "default" {
 
   # Support deployment ARNs
   statement {
-    actions = ["s3:*"]
+    actions = ["${var.deployment_actions}"]
 
     resources = ["${aws_s3_bucket.default.arn}",
       "${aws_s3_bucket.default.arn}/*",
