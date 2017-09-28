@@ -84,13 +84,13 @@ data "aws_iam_policy_document" "public" {
 }
 
 resource "aws_s3_bucket_policy" "deployment" {
-  count  = "${length(var.deployment_arns)}"
+  count  = "${signum(length(var.deployment_arns))}"
   bucket = "${aws_s3_bucket.default.id}"
-  policy = "${element(data.aws_iam_policy_document.deployment.*.json, count.index)}"
+  policy = "${join("", data.aws_iam_policy_document.deployment.*.json)}"
 }
 
 data "aws_iam_policy_document" "deployment" {
-  count = "${length(var.deployment_arns)}"
+  count = "${signum(length(var.deployment_arns))}"
 
   statement {
     actions = ["s3:*"]
