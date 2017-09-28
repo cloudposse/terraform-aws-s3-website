@@ -3,7 +3,7 @@ module "logs" {
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
-  attributes               = "${compact(concat(var.attributes, list("logs")))}"
+  attributes               = ["${compact(concat(var.attributes, list("logs")))}"]
   standard_transition_days = "${var.logs_standard_transition_days}"
   glacier_transition_days  = "${var.logs_glacier_transition_days}"
   expiration_days          = "${var.logs_expiration_days}"
@@ -15,7 +15,7 @@ module "default_label" {
   stage      = "${var.stage}"
   name       = "${var.name}"
   delimiter  = "${var.delimiter}"
-  attributes = "${compact(concat(var.attributes, list("origin")))}"
+  attributes = ["${compact(concat(var.attributes, list("origin")))}"]
   tags       = "${var.tags}"
 }
 
