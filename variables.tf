@@ -105,7 +105,7 @@ variable "force_destroy" {
 }
 
 variable "deployment_arns" {
-  description = "(Optional) List of ARNs permitted to deploy to this bucket (read/write access)"
+  description = "(Optional) List of ARNs to grant `deployment_actions` permissions on this bucket"
   type        = "list"
   default     = []
 }
