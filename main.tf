@@ -3,6 +3,7 @@ module "logs" {
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
+  attributes               = ["${compact(concat(var.attributes, list("logs")))}"]
   standard_transition_days = "${var.logs_standard_transition_days}"
   glacier_transition_days  = "${var.logs_glacier_transition_days}"
   expiration_days          = "${var.logs_expiration_days}"
@@ -14,7 +15,7 @@ module "default_label" {
   stage      = "${var.stage}"
   name       = "${var.name}"
   delimiter  = "${var.delimiter}"
-  attributes = ["origin"]
+  attributes = ["${compact(concat(var.attributes, list("origin")))}"]
   tags       = "${var.tags}"
 }
 
@@ -66,6 +67,8 @@ resource "aws_s3_bucket" "default" {
 
 }
 
+# AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
+# https://github.com/hashicorp/terraform/issues/10543
 resource "aws_s3_bucket_policy" "default" {
   bucket = "${aws_s3_bucket.default.id}"
   policy = "${data.aws_iam_policy_document.default.json}"
@@ -106,6 +109,20 @@ data "aws_iam_policy_document" "master" {
       "${aws_s3_bucket.default.arn}",
       "${aws_s3_bucket.default.arn}/*",
     ]
+  }
+
+  # Support deployment ARNs
+  statement {
+    actions = ["${var.deployment_actions}"]
+
+    resources = ["${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/*",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${var.deployment_arns}"]
+    }
   }
 }
 

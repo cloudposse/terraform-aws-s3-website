@@ -4,6 +4,11 @@ variable "namespace" {}
 
 variable "stage" {}
 
+variable "attributes" {
+  type    = "list"
+  default = []
+}
+
 variable "tags" {
   type    = "map"
   default = {}
@@ -109,4 +114,16 @@ variable "versioning_enabled" {
 
 variable "force_destroy" {
   default = ""
+}
+
+variable "deployment_arns" {
+  description = "(Optional) List of ARNs to grant `deployment_actions` permissions on this bucket"
+  type        = "list"
+  default     = []
+}
+
+variable "deployment_actions" {
+  description = "List of actions to permit deployment ARNs to perform"
+  type        = "list"
+  default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
 }
