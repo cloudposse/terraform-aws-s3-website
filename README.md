@@ -68,7 +68,7 @@ module "website_with_cname" {
 | `logs_standard_transition_days`     | `30`           | Number of days to persist in the standard storage tier before moving to the glacier tier                        | No       |
 | `logs_glacier_transition_days`      | `60`           | Number of days after which to move the data to the glacier storage tier                                         | No       |
 | `logs_expiration_days`              | `90`           | Number of days after which to expunge the objects                                                               | No       |
-| `master_aws_account_ids             | `[]`           | List of AWS IAM ID of owner for replication source bucket.                                                      | No       |
+| `replication_source_principal_arn`  | `[]`           | List of principal ARNs to grant replication access from different aws account.                                  | No       |
 | `deployment_arns`                   | `[]`           | List of ARNs to grant `deployment_actions` permissions on this bucket                                           | No       |
 | `deployment_actions`                | read/write/ls  | List of actions to permit deployment ARNs to perform                                                            | No       |
 
