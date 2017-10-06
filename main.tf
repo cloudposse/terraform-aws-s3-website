@@ -86,16 +86,16 @@ data "aws_iam_policy_document" "default" {
     }
   }]
 
-  statement = ["${flatten(data.aws_iam_policy_document.master.*.statement)}"]
+  statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
 }
 
-data "aws_iam_policy_document" "master" {
-  count = "${signum(length(var.master_aws_account_ids))}"
+data "aws_iam_policy_document" "replication" {
+  count = "${signum(length(var.replication_source_principal_arn))}"
 
   statement {
     principals {
       type = "AWS"
-      identifiers = ["${formatlist("arn:aws:iam::%v:root", var.master_aws_account_ids)}"]
+      identifiers = ["${var.replication_source_principal_arn}"]
     }
 
     actions = [

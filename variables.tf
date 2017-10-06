@@ -101,10 +101,10 @@ variable "region" {
   default = ""
 }
 
-variable "master_aws_account_ids" {
+variable "replication_source_principal_arn" {
   type        = "list"
   default     = []
-  description = "List of AWS IAM ID of owner for replication source bucket."
+  description = "(Optional) List of principal ARNs to grant replication access from different aws account."
 }
 
 
