@@ -64,6 +64,7 @@ resource "aws_s3_bucket" "default" {
       days = "${var.noncurrent_version_expiration_days}"
     }
   }
+
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
@@ -74,8 +75,7 @@ resource "aws_s3_bucket_policy" "default" {
 }
 
 data "aws_iam_policy_document" "default" {
-  # Allow public access to this bucket (website)
-  statement {
+  statement = [{
     actions = ["s3:GetObject"]
 
     resources = ["${aws_s3_bucket.default.arn}/*"]
@@ -84,6 +84,31 @@ data "aws_iam_policy_document" "default" {
       type        = "AWS"
       identifiers = ["*"]
     }
+  }]
+
+  statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
+}
+
+data "aws_iam_policy_document" "replication" {
+  count = "${signum(length(var.replication_source_principal_arn))}"
+
+  statement {
+    principals {
+      type = "AWS"
+      identifiers = ["${var.replication_source_principal_arn}"]
+    }
+
+    actions = [
+      "s3:GetBucketVersioning",
+      "s3:PutBucketVersioning",
+      "s3:ReplicateObject",
+      "s3:ReplicateDelete",
+    ]
+
+    resources = [
+      "${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/*",
+    ]
   }
 
   # Support deployment ARNs

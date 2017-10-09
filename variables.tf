@@ -101,6 +101,13 @@ variable "region" {
   default = ""
 }
 
+variable "replication_source_principal_arn" {
+  type        = "list"
+  default     = []
+  description = "(Optional) List of principal ARNs to grant replication access from different aws account."
+}
+
+
 variable "versioning_enabled" {
   default = ""
 }
