@@ -107,13 +107,17 @@ variable "replication_source_principal_arn" {
   description = "(Optional) List of principal ARNs to grant replication access from different aws account."
 }
 
-
 variable "versioning_enabled" {
   default = ""
 }
 
 variable "force_destroy" {
   default = ""
+}
+
+variable "deployment_prefix" {
+  description = "(Optional) Wildcard prefix permitted to perform `deployment_actions`"
+  default     = "*"
 }
 
 variable "deployment_arns" {
