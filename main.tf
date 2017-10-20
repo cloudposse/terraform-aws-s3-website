@@ -84,6 +84,19 @@ data "aws_iam_policy_document" "default" {
       type        = "AWS"
       identifiers = ["*"]
     }
+  },
+ # Support deployment ARNs
+  {
+    actions = ["${var.deployment_actions}"]
+    resources = [
+      "${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/*",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${var.deployment_arns}"]
+    }
   }]
 
   statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
@@ -109,20 +122,6 @@ data "aws_iam_policy_document" "replication" {
       "${aws_s3_bucket.default.arn}",
       "${aws_s3_bucket.default.arn}/*",
     ]
-  }
-
-  # Support deployment ARNs
-  statement {
-    actions = ["${var.deployment_actions}"]
-
-    resources = ["${aws_s3_bucket.default.arn}",
-      "${aws_s3_bucket.default.arn}/*",
-    ]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${var.deployment_arns}"]
-    }
   }
 }
 
