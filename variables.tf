@@ -107,13 +107,17 @@ variable "replication_source_principal_arn" {
   description = "(Optional) List of principal ARNs to grant replication access from different aws account."
 }
 
-
 variable "versioning_enabled" {
   default = ""
 }
 
 variable "force_destroy" {
   default = ""
+}
+
+variable "deployment_prefix" {
+  description = "(Optional) Wildcard prefix permitted to perform `deployment_actions`"
+  default     = "*"
 }
 
 variable "deployment_arns" {
@@ -126,4 +130,10 @@ variable "deployment_actions" {
   description = "List of actions to permit deployment ARNs to perform"
   type        = "list"
   default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
+}
+
+variable "deployment_arns_deployment_prefixes" {
+  type        = "map"
+  default     = {}
+  description = "Map of deployments ARNs to S3 prefixes to allow the `deployment_actions` to be executed by the ARNs on the deployment prefixes"
 }

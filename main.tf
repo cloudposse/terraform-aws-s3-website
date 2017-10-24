@@ -10,7 +10,7 @@ module "logs" {
 }
 
 module "default_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.1"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.2"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -64,7 +64,6 @@ resource "aws_s3_bucket" "default" {
       days = "${var.noncurrent_version_expiration_days}"
     }
   }
-
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
@@ -86,6 +85,21 @@ data "aws_iam_policy_document" "default" {
     }
   }]
 
+  # Support deployment ARNs
+  statement {
+    actions = ["${var.deployment_actions}"]
+
+    resources = ["${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/${var.deployment_prefix}",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${var.deployment_arns}"]
+    }
+  }
+
+  # Support replication ARNs
   statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
 }
 
@@ -94,7 +108,7 @@ data "aws_iam_policy_document" "replication" {
 
   statement {
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["${var.replication_source_principal_arn}"]
     }
 
@@ -109,20 +123,6 @@ data "aws_iam_policy_document" "replication" {
       "${aws_s3_bucket.default.arn}",
       "${aws_s3_bucket.default.arn}/*",
     ]
-  }
-
-  # Support deployment ARNs
-  statement {
-    actions = ["${var.deployment_actions}"]
-
-    resources = ["${aws_s3_bucket.default.arn}",
-      "${aws_s3_bucket.default.arn}/*",
-    ]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${var.deployment_arns}"]
-    }
   }
 }
 
