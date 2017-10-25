@@ -85,22 +85,11 @@ data "aws_iam_policy_document" "default" {
     }
   }]
 
-  # Support deployment ARNs
-  statement {
-    actions = ["${var.deployment_actions}"]
-
-    resources = ["${aws_s3_bucket.default.arn}",
-      "${aws_s3_bucket.default.arn}/${var.deployment_prefix}",
-    ]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${var.deployment_arns}"]
-    }
-  }
-
   # Support replication ARNs
   statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
+
+  # Support deployment ARNs
+  statement = ["${flatten(data.aws_iam_policy_document.deployment.*.statement)}"]
 }
 
 data "aws_iam_policy_document" "replication" {
@@ -123,6 +112,25 @@ data "aws_iam_policy_document" "replication" {
       "${aws_s3_bucket.default.arn}",
       "${aws_s3_bucket.default.arn}/*",
     ]
+  }
+}
+
+data "aws_iam_policy_document" "deployment" {
+  count = "${length(keys(var.deployment_arns))}"
+
+  statement {
+    sid     = "AllowDeployment"
+    actions = ["${var.deployment_actions}"]
+
+    resources = [
+      "${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/${lookup(var.deployment_arns, element(keys(var.deployment_arns), count.index))}",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${element(keys(var.deployment_arns), count.index)}"]
+    }
   }
 }
 
