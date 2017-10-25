@@ -10,7 +10,7 @@ module "logs" {
 }
 
 module "default_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.1"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.2"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -64,7 +64,6 @@ resource "aws_s3_bucket" "default" {
       days = "${var.noncurrent_version_expiration_days}"
     }
   }
-
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
@@ -86,16 +85,20 @@ data "aws_iam_policy_document" "default" {
     }
   }]
 
+  # Support replication ARNs
   statement = ["${flatten(data.aws_iam_policy_document.replication.*.statement)}"]
+
+  # Support deployment ARNs
+  statement = ["${flatten(data.aws_iam_policy_document.deployment.*.statement)}"]
 }
 
 data "aws_iam_policy_document" "replication" {
-  count = "${signum(length(var.replication_source_principal_arn))}"
+  count = "${signum(length(var.replication_source_principal_arns))}"
 
   statement {
     principals {
-      type = "AWS"
-      identifiers = ["${var.replication_source_principal_arn}"]
+      type        = "AWS"
+      identifiers = ["${var.replication_source_principal_arns}"]
     }
 
     actions = [
@@ -110,18 +113,23 @@ data "aws_iam_policy_document" "replication" {
       "${aws_s3_bucket.default.arn}/*",
     ]
   }
+}
 
-  # Support deployment ARNs
+data "aws_iam_policy_document" "deployment" {
+  count = "${length(keys(var.deployment_arns))}"
+
   statement {
+    sid     = "AllowDeployment"
     actions = ["${var.deployment_actions}"]
 
-    resources = ["${aws_s3_bucket.default.arn}",
-      "${aws_s3_bucket.default.arn}/*",
+    resources = [
+      "${aws_s3_bucket.default.arn}",
+      "${aws_s3_bucket.default.arn}/${lookup(var.deployment_arns, element(keys(var.deployment_arns), count.index))}",
     ]
 
     principals {
       type        = "AWS"
-      identifiers = ["${var.deployment_arns}"]
+      identifiers = ["${element(keys(var.deployment_arns), count.index)}"]
     }
   }
 }
