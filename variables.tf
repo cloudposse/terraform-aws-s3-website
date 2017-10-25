@@ -109,7 +109,7 @@ variable "force_destroy" {
   default = ""
 }
 
-variable "replication_source_principal_arn" {
+variable "replication_source_principal_arns" {
   type        = "list"
   default     = []
   description = "(Optional) List of principal ARNs to grant replication access from different AWS accounts"

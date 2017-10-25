@@ -93,12 +93,12 @@ data "aws_iam_policy_document" "default" {
 }
 
 data "aws_iam_policy_document" "replication" {
-  count = "${signum(length(var.replication_source_principal_arn))}"
+  count = "${signum(length(var.replication_source_principal_arns))}"
 
   statement {
     principals {
       type        = "AWS"
-      identifiers = ["${var.replication_source_principal_arn}"]
+      identifiers = ["${var.replication_source_principal_arns}"]
     }
 
     actions = [
