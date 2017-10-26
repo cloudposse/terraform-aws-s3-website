@@ -13,11 +13,16 @@ Terraform module for creating S3 backed Websites
 
 ```hcl
 module "website" {
-  source      = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
-  namespace   = "${var.namespace}"
-  stage       = "${var.stage}"
-  name        = "${var.name}"
-  hostname    = "${var.hostname}"
+  source    = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  name      = "${var.name}"
+  hostname  = "${var.hostname}"
+
+  deployment_arns = {
+    "arn:aws:s3:::principal1" = ["/prefix1", "/prefix2"]
+    "arn:aws:s3:::principal2" = [""]
+  }
 }
 ```
 
@@ -69,7 +74,7 @@ module "website_with_cname" {
 | `logs_glacier_transition_days`      | `60`           | Number of days after which to move the data to the glacier storage tier                                         | No       |
 | `logs_expiration_days`              | `90`           | Number of days after which to expunge the objects                                                               | No       |
 | `replication_source_principal_arns` | `[]`           | List of principal ARNs to grant replication access from different AWS accounts                                  | No       |
-| `deployment_arns`                   | `{}`           | Map of deployment ARNs to S3 prefixes to grant `deployment_actions` permissions                                 | No       |
+| `deployment_arns`                   | `{}`           | Map of deployment ARNs to lists of S3 path prefixes to grant `deployment_actions` permissions                   | No       |
 | `deployment_actions`                | read/write/ls  | List of actions to permit deployment ARNs to perform                                                            | No       |
 
 
