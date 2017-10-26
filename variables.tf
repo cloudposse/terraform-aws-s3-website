@@ -118,7 +118,7 @@ variable "replication_source_principal_arns" {
 variable "deployment_arns" {
   type        = "map"
   default     = {}
-  description = "(Optional) Map of deployment ARNs to S3 prefixes to grant `deployment_actions` permissions"
+  description = "(Optional) Map of deployment ARNs to lists of S3 path prefixes to grant `deployment_actions` permissions"
 }
 
 variable "deployment_actions" {

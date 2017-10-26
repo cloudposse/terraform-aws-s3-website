@@ -123,8 +123,8 @@ data "aws_iam_policy_document" "deployment" {
     actions = ["${var.deployment_actions}"]
 
     resources = [
-      "${aws_s3_bucket.default.arn}",
-      "${aws_s3_bucket.default.arn}/${lookup(var.deployment_arns, element(keys(var.deployment_arns), count.index))}",
+      "${formatlist("${aws_s3_bucket.default.arn}%s", var.deployment_arns[element(keys(var.deployment_arns), count.index)])}",
+      "${formatlist("${aws_s3_bucket.default.arn}%s/*", var.deployment_arns[element(keys(var.deployment_arns), count.index)])}",
     ]
 
     principals {
