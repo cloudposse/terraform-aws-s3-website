@@ -119,7 +119,6 @@ data "aws_iam_policy_document" "deployment" {
   count = "${length(keys(var.deployment_arns))}"
 
   statement {
-    sid     = "AllowDeployment"
     actions = ["${var.deployment_actions}"]
 
     resources = [
