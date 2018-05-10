@@ -1,5 +1,5 @@
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.1.2"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.2.0"
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
@@ -10,7 +10,7 @@ module "logs" {
 }
 
 module "default_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.2"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.3"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
