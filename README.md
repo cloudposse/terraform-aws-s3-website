@@ -7,10 +7,6 @@
 
 Terraform module to provision S3-backed Websites
 
-## Further Reading
-
-* http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html
-
 
 ---
 
@@ -138,6 +134,14 @@ Check out these related projects.
 - [terraform-aws-s3-logs-athena-query](https://github.com/cloudposse/terraform-aws-s3-logs-athena-query) - A Terraform module that creates an Athena Database and Structure for querying S3 access logs
 - [terraform-aws-lb-s3-bucket](https://github.com/cloudposse/terraform-aws-lb-s3-bucket) - Terraform module to provision an S3 bucket with built in IAM policy to allow AWS Load Balancers to ship access logs
 
+
+
+
+## References
+
+For additional context, refer to some of these links. 
+
+- [Hosting Websites on Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html) - Example: setting up a Static Website Using a Custom Domain
 
 
 ## Help

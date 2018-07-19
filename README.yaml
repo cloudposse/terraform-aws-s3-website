@@ -49,10 +49,6 @@ related:
 description: |-
   Terraform module to provision S3-backed Websites
 
-  ## Further Reading
-
-  * http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html
-
 # How to use this project
 usage: |-
   #### Create s3 website bucket
@@ -87,6 +83,10 @@ usage: |-
     parent_zone_id = "XXXXXXXXXXXX"
   }
   ```
+references:
+  - name: "Hosting Websites on Amazon S3"
+    description: "Example: setting up a Static Website Using a Custom Domain"
+    url: "http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html"
 
 include:
   - "docs/targets.md"
