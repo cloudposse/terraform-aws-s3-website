@@ -71,7 +71,7 @@ usage: |-
 
   #### Create S3 website bucket with Route53 DNS
 
-  * Required one of the `parent_zone_id` or `parent_zone_name`
+  Required one of the `parent_zone_id` or `parent_zone_name`
 
   ```hcl
   module "website_with_cname" {
