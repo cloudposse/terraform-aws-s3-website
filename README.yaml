@@ -7,6 +7,20 @@
 # Name of this project
 name: terraform-aws-s3-website
 
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - cdn
+  - route53
+  - s3
+  - s3-website
+
+# Categories of this project
+categories:
+  - terraform-modules/cdn
+
 # Logo for this project
 #logo: docs/logo.png
 
