@@ -45,7 +45,7 @@ resource "aws_s3_bucket" "default" {
     target_prefix = "${module.logs.prefix}"
   }
 
-  website = "${local.website_config["${var.redirect_all_requests_to == "" ? "default" : "redirect_all" }"]}"
+  website = "${local.website_config[var.redirect_all_requests_to == "" ? "default" : "redirect_all"]}"
 
   cors_rule {
     allowed_headers = "${var.cors_allowed_headers}"
