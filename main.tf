@@ -1,3 +1,16 @@
+locals {
+  website_config = {
+    redirect_all = [{
+      redirect_all_requests_to = "${var.redirect_all_requests_to}"
+    }]
+    default = [{
+      index_document  = "${var.index_document}"
+      error_document  = "${var.error_document}"
+      routing_rules   = "${var.routing_rules}"
+    }]
+  }
+}
+
 module "logs" {
   source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.2.0"
   name                     = "${var.name}"
@@ -31,12 +44,7 @@ resource "aws_s3_bucket" "default" {
     target_prefix = "${module.logs.prefix}"
   }
 
-  website {
-    index_document            = "${var.index_document}"
-    error_document            = "${var.error_document}"
-    routing_rules             = "${var.routing_rules}"
-    redirect_all_requests_to  = "${var.redirect_all_requests_to}"
-  }
+  website = "${local.website_config["${var.redirect_all_requests_to == "" ? "default" : "redirect_all" }"]}"
 
   cors_rule {
     allowed_headers = "${var.cors_allowed_headers}"
