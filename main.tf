@@ -32,9 +32,10 @@ resource "aws_s3_bucket" "default" {
   }
 
   website {
-    index_document = "${var.index_document}"
-    error_document = "${var.error_document}"
-    routing_rules  = "${var.routing_rules}"
+    index_document            = "${var.index_document}"
+    error_document            = "${var.error_document}"
+    routing_rules             = "${var.routing_rules}"
+    redirect_all_requests_to  = "${var.redirect_all_requests_to}"
   }
 
   cors_rule {
