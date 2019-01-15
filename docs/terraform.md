@@ -1,4 +1,3 @@
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -27,6 +26,7 @@
 | parent_zone_id | ID of the hosted zone to contain the record | string | `` | no |
 | parent_zone_name | Name of the hosted zone to contain the record | string | `` | no |
 | prefix | Prefix identifying one or more objects to which the rule applies | string | `` | no |
+| redirect_all_requests_to | A hostname to redirect all website requests for this bucket to. If this is set `index_document` will be ignored. | string | `` | no |
 | region | AWS region this bucket should reside in | string | `` | no |
 | replication_source_principal_arns | (Optional) List of principal ARNs to grant replication access from different AWS accounts | list | `<list>` | no |
 | routing_rules | A json array containing routing rules describing redirect behavior and when redirects are applied | string | `` | no |

@@ -47,6 +47,11 @@ variable "index_document" {
   description = "Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders"
 }
 
+variable "redirect_all_requests_to" {
+  default     = ""
+  description = "A hostname to redirect all website requests for this bucket to. If this is set `index_document` will be ignored."
+}
+
 variable "error_document" {
   default     = "404.html"
   description = "An absolute path to the document to return in case of a 4XX error"
