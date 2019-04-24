@@ -17,6 +17,7 @@ module "logs" {
   name                     = "${var.name}"
   stage                    = "${var.stage}"
   namespace                = "${var.namespace}"
+  delimiter                = "${var.delimiter}"
   attributes               = ["${compact(concat(var.attributes, list("logs")))}"]
   standard_transition_days = "${var.logs_standard_transition_days}"
   glacier_transition_days  = "${var.logs_glacier_transition_days}"
