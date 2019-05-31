@@ -11,19 +11,19 @@ variable "stage" {
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Additional attributes (e.g. `policy` or `role`)"
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   default     = "-"
   description = "Delimiter to be used between `name`, `namespace`, `stage`, etc."
 }
@@ -63,25 +63,25 @@ variable "routing_rules" {
 }
 
 variable "cors_allowed_headers" {
-  type        = "list"
+  type        = list(string)
   default     = ["*"]
   description = "List of allowed headers"
 }
 
 variable "cors_allowed_methods" {
-  type        = "list"
+  type        = list(string)
   default     = ["GET"]
   description = "List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) "
 }
 
 variable "cors_allowed_origins" {
-  type        = "list"
+  type        = list(string)
   default     = ["*"]
   description = "List of allowed origins (e.g. ` example.com, test.com`)"
 }
 
 variable "cors_expose_headers" {
-  type        = "list"
+  type        = list(string)
   default     = ["ETag"]
   description = "List of expose header in the response"
 }
@@ -142,19 +142,20 @@ variable "force_destroy" {
 }
 
 variable "replication_source_principal_arns" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "(Optional) List of principal ARNs to grant replication access from different AWS accounts"
 }
 
 variable "deployment_arns" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "(Optional) Map of deployment ARNs to lists of S3 path prefixes to grant `deployment_actions` permissions"
 }
 
 variable "deployment_actions" {
-  type        = "list"
+  type        = list(string)
   default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
   description = "List of actions to permit deployment ARNs to perform"
 }
+
