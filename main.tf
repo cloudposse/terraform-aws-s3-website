@@ -21,7 +21,7 @@ module "logs" {
   stage                    = var.stage
   namespace                = var.namespace
   delimiter                = var.delimiter
-  attributes               = [compact(concat(var.attributes, ["logs"]))]
+  attributes               = compact(concat(var.attributes, ["logs"]))
   standard_transition_days = var.logs_standard_transition_days
   glacier_transition_days  = var.logs_glacier_transition_days
   expiration_days          = var.logs_expiration_days
@@ -33,7 +33,7 @@ module "default_label" {
   stage      = var.stage
   name       = var.name
   delimiter  = var.delimiter
-  attributes = [compact(concat(var.attributes, ["origin"]))]
+  attributes = compact(concat(var.attributes, ["origin"]))
   tags       = var.tags
 }
 
