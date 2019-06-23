@@ -16,7 +16,7 @@ locals {
 }
 
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=master"
+  source                   = "git::https://github.com/rverma-nikiai/terraform-aws-s3-log-storage.git?ref=master"
   name                     = var.name
   stage                    = var.stage
   namespace                = var.namespace
@@ -247,7 +247,7 @@ data "aws_iam_policy_document" "deployment" {
 }
 
 module "dns" {
-  source = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=master"
+  source = "git::https://github.com/rverma-nikiai/terraform-aws-route53-alias.git?ref=master"
   aliases = compact(
     [
       signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : "",
