@@ -216,17 +216,17 @@ data "aws_iam_policy_document" "deployment" {
     resources = [
       formatlist(
         "${aws_s3_bucket.default.arn}%s",
-        var.deployment_arns[keys(var.deployment_arns)[count.index]],
+        var.deployment_arns[element(keys(var.deployment_arns), count.index)]
       ),
       formatlist(
         "${aws_s3_bucket.default.arn}%s/*",
-        var.deployment_arns[keys(var.deployment_arns)[count.index]],
+        var.deployment_arns[element(keys(var.deployment_arns), count.index)]
       )
     ]
 
     principals {
       type        = "AWS"
-      identifiers = [keys(var.deployment_arns)[count.index]]
+      identifiers = [element(keys(var.deployment_arns), count.index)]
     }
   }
 }
