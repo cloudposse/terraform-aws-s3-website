@@ -32,9 +32,9 @@ github_repo: cloudposse/terraform-aws-s3-website
 
 # Badges to display
 badges:
-  - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-s3-website.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-s3-website"
+  - name: "Codefresh Build Status"
+    image: "https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-s3-website?type=cf-1"
+    url: "https://g.codefresh.io/public/accounts/cloudposse/pipelines/5d1bcf1295dc300d779861d7"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg"
     url: "https://github.com/cloudposse/terraform-aws-s3-website/releases/latest"
@@ -70,7 +70,7 @@ usage: |-
   ```hcl
   module "website" {
     source    = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
-    namespace = "cp"
+    namespace = "eg"
     stage     = "prod"
     name      = "app"
     hostname  = "docs.prod.cloudposse.org"
@@ -90,13 +90,14 @@ usage: |-
   ```hcl
   module "website_with_cname" {
     source         = "git::https://github.com/cloudposse/terraform-aws-s3-website.git?ref=master"
-    namespace      = "cp"
+    namespace      = "eg"
     stage          = "prod"
     name           = "app"
     hostname       = "docs.prod.cloudposse.org"
     parent_zone_id = "XXXXXXXXXXXX"
   }
   ```
+
 references:
   - name: "Hosting Websites on Amazon S3"
     description: "Example: setting up a Static Website Using a Custom Domain"
