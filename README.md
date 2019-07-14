@@ -136,8 +136,8 @@ Available targets:
 | Name | Description |
 |------|-------------|
 | hostname | Bucket hostname |
-| s3_bucket_arn | Name of of website bucket |
-| s3_bucket_domain_name | Name of of website bucket |
+| s3_bucket_arn | ARN identifier of website bucket |
+| s3_bucket_domain_name | Name of website bucket |
 | s3_bucket_hosted_zone_id | The Route 53 Hosted Zone ID for this bucket's region |
 | s3_bucket_name | DNS record of website bucket |
 | s3_bucket_website_domain | The domain of the website endpoint |
