@@ -213,16 +213,16 @@ data "aws_iam_policy_document" "deployment" {
   statement {
     actions = var.deployment_actions
 
-    resources = [
-      format(
+    resources = flatten([
+      formatlist(
         "${aws_s3_bucket.default.arn}%s",
         var.deployment_arns[keys(var.deployment_arns)[count.index]]
       ),
-      format(
+      formatlist(
         "${aws_s3_bucket.default.arn}%s/*",
         var.deployment_arns[keys(var.deployment_arns)[count.index]]
       )
-    ]
+    ])
 
     principals {
       type        = "AWS"
