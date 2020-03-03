@@ -146,7 +146,7 @@ Available targets:
 | cors_max_age_seconds | Time in seconds that browser can cache the response | number | `3600` | no |
 | delimiter | Delimiter to be used between `name`, `namespace`, `stage`, etc. | string | `-` | no |
 | deployment_actions | List of actions to permit deployment ARNs to perform | list(string) | `<list>` | no |
-| deployment_arns | (Optional) Map of deployment ARNs to lists of S3 path prefixes to grant `deployment_actions` permissions | map(string) | `<map>` | no |
+| deployment_arns | (Optional) Map of deployment ARNs to lists of S3 path prefixes to grant `deployment_actions` permissions | map(any) | `<map>` | no |
 | error_document | An absolute path to the document to return in case of a 4XX error | string | `404.html` | no |
 | force_destroy | Delete all objects from the bucket so that the bucket can be destroyed without error (e.g. `true` or `false`) | bool | `false` | no |
 | hostname | Name of website bucket in `fqdn` format (e.g. `test.example.com`). IMPORTANT! Do not add trailing dot (`.`) | string | - | yes |
