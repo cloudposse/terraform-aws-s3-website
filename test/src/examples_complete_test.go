@@ -34,6 +34,7 @@ func TestExamplesComplete(t *testing.T) {
 		VarFiles: []string{"fixtures.us-west-1.tfvars"},
 		Vars: map[string]interface{} {
 			"name": testName,
+			"hostname": testName+".testing.cloudposse.co",
 		},
 	}
 
