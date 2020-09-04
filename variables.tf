@@ -74,34 +74,23 @@ variable "routing_rules" {
   description = "A json array containing routing rules describing redirect behavior and when redirects are applied"
 }
 
-variable "cors_allowed_headers" {
-  type        = list(string)
-  default     = ["*"]
-  description = "List of allowed headers"
-}
-
-variable "cors_allowed_methods" {
-  type        = list(string)
-  default     = ["GET"]
-  description = "List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) "
-}
-
-variable "cors_allowed_origins" {
-  type        = list(string)
-  default     = ["*"]
-  description = "List of allowed origins (e.g. example.com, test.com)"
-}
-
-variable "cors_expose_headers" {
-  type        = list(string)
-  default     = ["ETag"]
-  description = "List of expose header in the response"
-}
-
-variable "cors_max_age_seconds" {
-  type        = number
-  default     = 3600
-  description = "Time in seconds that browser can cache the response"
+variable "cors_rules" {
+  description = "Cross-Origin Resource Sharing rules"
+  type = list(object({
+    allowed_headers = list(string)
+    allowed_methods = list(string)
+    allowed_origins = list(string)
+    expose_headers  = list(string)
+    max_age_seconds = number
+  }))
+  default = [{
+    allowed_headers = ["*"]
+    allowed_methods = ["GET"]
+    allowed_origins = ["*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3600
+    }
+  ]
 }
 
 variable "logs_standard_transition_days" {
