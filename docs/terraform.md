@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -61,3 +62,4 @@
 | s3\_bucket\_website\_domain | The domain of the website endpoint |
 | s3\_bucket\_website\_endpoint | The website endpoint URL |
 
+<!-- markdownlint-restore -->
