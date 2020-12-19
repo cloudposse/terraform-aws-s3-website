@@ -1,38 +1,3 @@
-variable "name" {
-  type        = string
-  description = "The Name of the application or solution  (e.g. `bastion` or `portal`)"
-}
-
-variable "namespace" {
-  type        = string
-  description = "Namespace (e.g. `eg` or `cp`)"
-  default     = ""
-}
-
-variable "stage" {
-  type        = string
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
-  default     = ""
-}
-
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = "Additional attributes (e.g. `policy` or `role`)"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
-}
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "Delimiter to be used between `name`, `namespace`, `stage`, etc."
-}
-
 variable "hostname" {
   type        = string
   description = "Name of website bucket in `fqdn` format (e.g. `test.example.com`). IMPORTANT! Do not add trailing dot (`.`)"
@@ -144,12 +109,6 @@ variable "noncurrent_version_expiration_days" {
   type        = number
   default     = 90
   description = "Specifies when noncurrent object versions expire"
-}
-
-variable "region" {
-  type        = string
-  default     = ""
-  description = "AWS region this bucket should reside in"
 }
 
 variable "versioning_enabled" {
