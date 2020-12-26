@@ -1,4 +1,4 @@
-
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |

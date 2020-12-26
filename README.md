@@ -1,6 +1,6 @@
-
+<!-- markdownlint-disable -->
 # terraform-aws-s3-website [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
-
+<!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -125,6 +125,7 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
