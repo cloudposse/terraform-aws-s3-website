@@ -1,6 +1,6 @@
-<!-- markdownlint-disable -->
-# terraform-aws-s3-website [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-s3-website?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/5d1bcf1295dc300d779861d7) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
-<!-- markdownlint-restore -->
+
+# terraform-aws-s3-website [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -125,12 +125,11 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.12.0 |
+| terraform | >= 0.12.0 |
 | aws | ~> 2.0 |
 | local | ~> 1.2 |
 | null | ~> 2.0 |
