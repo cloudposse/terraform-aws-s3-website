@@ -61,10 +61,10 @@
 | Name | Description |
 |------|-------------|
 | hostname | Bucket hostname |
-| s3\_bucket\_arn | ARN identifier of website bucket |
-| s3\_bucket\_domain\_name | Name of website bucket |
+| s3\_bucket\_arn | ARN identifier of the website bucket |
+| s3\_bucket\_domain\_name | Name of the website bucket |
 | s3\_bucket\_hosted\_zone\_id | The Route 53 Hosted Zone ID for this bucket's region |
-| s3\_bucket\_name | DNS record of website bucket |
+| s3\_bucket\_name | DNS record of the website bucket |
 | s3\_bucket\_website\_domain | The domain of the website endpoint |
 | s3\_bucket\_website\_endpoint | The website endpoint URL |
 
