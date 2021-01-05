@@ -86,6 +86,13 @@ resource "aws_s3_bucket" "default" {
       days = var.noncurrent_version_expiration_days
     }
   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
