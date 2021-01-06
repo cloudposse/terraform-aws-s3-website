@@ -140,3 +140,9 @@ variable "deployment_actions" {
   default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
   description = "List of actions to permit deployment ARNs to perform"
 }
+
+variable "encryption_enabled" {
+  type        = bool
+  default     = false
+  description = "When set to 'true' the resource will have AES256 encryption enabled by default"
+}

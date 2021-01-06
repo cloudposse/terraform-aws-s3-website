@@ -17,3 +17,9 @@ variable "force_destroy" {
   type        = bool
   description = "Delete all objects from the bucket so that the bucket can be destroyed without error (e.g. `true` or `false`)"
 }
+
+variable "encryption_enabled" {
+  type        = bool
+  default     = false
+  description = "When set to 'true' the resource will have AES256 encryption enabled by default"
+}
