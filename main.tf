@@ -36,7 +36,6 @@ module "default_label" {
 
 resource "aws_s3_bucket" "default" {
   bucket        = var.hostname
-  acl           = "public-read"
   tags          = module.default_label.tags
   force_destroy = var.force_destroy
 
