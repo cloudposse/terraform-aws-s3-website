@@ -113,7 +113,7 @@ variable "noncurrent_version_expiration_days" {
 
 variable "versioning_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "Enable or disable versioning"
 }
 
