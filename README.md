@@ -28,7 +28,7 @@
 -->
 
 Terraform module to provision S3-backed Websites.
-**This module provision S3 bucket globally accessible for unauthenticated users because it is used for hosting static websites.** (Normally AWS S3 buckets must not be publicly accessible for WRITE/READ actions in order to protect S3 data from unauthorized users)
+**IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
 
 
 ---
