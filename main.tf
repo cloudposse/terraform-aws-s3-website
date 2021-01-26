@@ -29,14 +29,17 @@ module "logs" {
 
 module "default_label" {
   source     = "cloudposse/label/null"
-  version    = "0.22.0"
+  version    = "0.22.1"
   attributes = ["origin"]
   context    = module.this.context
 }
 
 resource "aws_s3_bucket" "default" {
-  bucket        = var.hostname
+  #bridgecrew:skip=BC_AWS_S3_1:The bucket used for a public static website. (https://docs.bridgecrew.io/docs/s3_1-acl-read-permissions-everyone)
+  #bridgecrew:skip=BC_AWS_S3_14:Skipping `Ensure all data stored in the S3 bucket is securely encrypted at rest` check until bridgecrew will support dynamic blocks (https://github.com/bridgecrewio/checkov/issues/776).
+  #bridgecrew:skip=CKV_AWS_52:Skipping `Ensure S3 bucket has MFA delete enabled` due to issue using `mfa_delete` by terraform (https://github.com/hashicorp/terraform-provider-aws/issues/629).
   acl           = "public-read"
+  bucket        = var.hostname
   tags          = module.default_label.tags
   force_destroy = var.force_destroy
 

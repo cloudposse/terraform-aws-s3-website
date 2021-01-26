@@ -27,7 +27,8 @@
 
 -->
 
-Terraform module to provision S3-backed Websites
+Terraform module to provision S3-backed Websites.
+**IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
 
 
 ---
@@ -137,7 +138,6 @@ Available targets:
 | terraform | >= 0.12.26 |
 | aws | >= 2.0 |
 | local | >= 1.2 |
-| null | >= 2.0 |
 
 ## Providers
 
@@ -186,7 +186,7 @@ Available targets:
 | routing\_rules | A json array containing routing rules describing redirect behavior and when redirects are applied | `string` | `""` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
-| versioning\_enabled | Enable or disable versioning | `bool` | `false` | no |
+| versioning\_enabled | Enable or disable versioning | `bool` | `true` | no |
 
 ## Outputs
 
