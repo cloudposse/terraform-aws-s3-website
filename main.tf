@@ -244,7 +244,7 @@ data "aws_iam_policy_document" "deployment" {
 
 module "dns" {
   source           = "cloudposse/route53-alias/aws"
-  version          = "0.10.0"
+  version          = "0.12.0"
   aliases          = compact([signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""])
   parent_zone_id   = var.parent_zone_id
   parent_zone_name = var.parent_zone_name
