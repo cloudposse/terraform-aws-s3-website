@@ -17,7 +17,7 @@ locals {
 
 module "logs" {
   source                   = "cloudposse/s3-log-storage/aws"
-  version                  = "0.20.0"
+  version                  = "0.23.0"
   attributes               = ["logs"]
   standard_transition_days = var.logs_standard_transition_days
   glacier_transition_days  = var.logs_glacier_transition_days
