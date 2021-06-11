@@ -19,6 +19,7 @@ module "logs" {
   source                   = "cloudposse/s3-log-storage/aws"
   version                  = "0.20.0"
   attributes               = ["logs"]
+  enabled                  = var.logs_enabled
   standard_transition_days = var.logs_standard_transition_days
   glacier_transition_days  = var.logs_glacier_transition_days
   expiration_days          = var.logs_expiration_days
@@ -43,9 +44,12 @@ resource "aws_s3_bucket" "default" {
   tags          = module.default_label.tags
   force_destroy = var.force_destroy
 
-  logging {
-    target_bucket = module.logs.bucket_id
-    target_prefix = module.logs.prefix
+  dynamic "logging" {
+    for_each = var.logs_enabled ? ["true"] : []
+    content {
+      target_bucket = module.logs.bucket_id
+      target_prefix = module.logs.prefix
+    }
   }
 
   dynamic "website" {

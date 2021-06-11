@@ -69,6 +69,12 @@ variable "cors_max_age_seconds" {
   description = "Time in seconds that browser can cache the response"
 }
 
+variable "logs_enabled" {
+  type        = bool
+  description = "Enable logs for s3 bucket"
+  default     = true
+}
+
 variable "logs_standard_transition_days" {
   type        = number
   description = "Number of days to persist in the standard storage tier before moving to the glacier tier"
