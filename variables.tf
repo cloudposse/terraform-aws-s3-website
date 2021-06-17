@@ -1,38 +1,3 @@
-variable "name" {
-  type        = string
-  description = "The Name of the application or solution  (e.g. `bastion` or `portal`)"
-}
-
-variable "namespace" {
-  type        = string
-  description = "Namespace (e.g. `eg` or `cp`)"
-  default     = ""
-}
-
-variable "stage" {
-  type        = string
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
-  default     = ""
-}
-
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = "Additional attributes (e.g. `policy` or `role`)"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
-}
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "Delimiter to be used between `name`, `namespace`, `stage`, etc."
-}
-
 variable "hostname" {
   type        = string
   description = "Name of website bucket in `fqdn` format (e.g. `test.example.com`). IMPORTANT! Do not add trailing dot (`.`)"
@@ -93,6 +58,12 @@ variable "cors_rules" {
   ]
 }
 
+variable "logs_enabled" {
+  type        = bool
+  description = "Enable logs for s3 bucket"
+  default     = true
+}
+
 variable "logs_standard_transition_days" {
   type        = number
   description = "Number of days to persist in the standard storage tier before moving to the glacier tier"
@@ -135,15 +106,9 @@ variable "noncurrent_version_expiration_days" {
   description = "Specifies when noncurrent object versions expire"
 }
 
-variable "region" {
-  type        = string
-  default     = ""
-  description = "AWS region this bucket should reside in"
-}
-
 variable "versioning_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "Enable or disable versioning"
 }
 
@@ -169,4 +134,10 @@ variable "deployment_actions" {
   type        = list(string)
   default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
   description = "List of actions to permit deployment ARNs to perform"
+}
+
+variable "encryption_enabled" {
+  type        = bool
+  default     = false
+  description = "When set to 'true' the resource will have AES256 encryption enabled by default"
 }

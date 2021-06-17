@@ -12,3 +12,5 @@ stage = "test"
 parent_zone_name = "testing.cloudposse.co"
 
 force_destroy = true
+
+encryption_enabled = true
