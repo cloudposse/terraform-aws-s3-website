@@ -10,12 +10,12 @@ output "s3_bucket_name" {
 
 output "s3_bucket_domain_name" {
   value       = aws_s3_bucket.default.bucket_domain_name
-  description = "Name of the website bucket"
+  description = "S3 bucket domain name"
 }
 
-output "s3_bucket_arn" {
-  value       = aws_s3_bucket.default.arn
-  description = "ARN identifier of the website bucket"
+output "s3_bucket_regional_domain_name" {
+  description = "S3 bucket regional domain name"
+  value       = aws_s3_bucket.default.bucket_regional_domain_name
 }
 
 output "s3_bucket_website_endpoint" {
