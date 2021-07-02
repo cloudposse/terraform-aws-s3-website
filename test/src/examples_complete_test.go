@@ -26,7 +26,7 @@ func TestExamplesComplete(t *testing.T) {
 		TerraformDir: "../../examples/complete",
 		Upgrade:      true,
 		// Variables to pass to our Terraform code using -var-file options
-		VarFiles: []string{"fixtures.us-east-2.tfvars"},
+		VarFiles: []string{"fixtures.us-west-1.tfvars"},
 	}
 
 	terraform.Init(t, terraformOptions)
@@ -57,7 +57,7 @@ func testExamplesCompleteEnabled(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
-	terraform.InitAndApply(t, terraformOptions)
+	terraform.Apply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
 	hostname := terraform.Output(t, terraformOptions, "hostname")
@@ -75,6 +75,7 @@ func testExamplesCompleteEnabled(t *testing.T) {
 	assert.Equal(t, testName+".testing.cloudposse.co.s3.amazonaws.com", s3BucketDomainName)
 }
 
+// Test the Terraform module in examples/complete using Terratest, but with the root module disabled.
 func testExamplesCompleteDisabled(t *testing.T) {
 	t.Parallel()
 
