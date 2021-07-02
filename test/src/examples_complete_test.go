@@ -78,7 +78,7 @@ func testExamplesCompleteEnabled(t *testing.T) {
 func testExamplesCompleteDisabled(t *testing.T) {
 	t.Parallel()
 
-	// We do not need a random attribute, because this test should never create anything
+	testName := "s3-website-test-"+RandStringRunes(10)
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
@@ -91,6 +91,8 @@ func testExamplesCompleteDisabled(t *testing.T) {
 		VarFiles: []string{"fixtures.us-west-1.tfvars"},
 		Vars: map[string]interface{}{
 			"enabled": "false",
+			"name": testName,
+			"hostname": testName+".testing.cloudposse.co",
 		},
 	}
 
