@@ -1,5 +1,5 @@
 locals {
-  enabled        = module.this.enabled
+  enabled = module.this.enabled
   website_config = {
     redirect_all = [
       {
@@ -254,8 +254,8 @@ data "aws_iam_policy_document" "deployment" {
 }
 
 module "dns" {
-  source           = "cloudposse/route53-alias/aws"
-  version          = "0.12.0"
+  source  = "cloudposse/route53-alias/aws"
+  version = "0.12.0"
 
   enabled          = local.enabled
   aliases          = compact([signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""])
