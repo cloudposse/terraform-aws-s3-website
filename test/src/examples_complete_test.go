@@ -39,7 +39,7 @@ func TestExamplesComplete(t *testing.T) {
 func testExamplesCompleteEnabled(t *testing.T) {
 	t.Parallel()
 
-	testName := "s3-website-test-"+RandStringRunes(10)
+	testName := "s3-website-test-" + RandStringRunes(10)
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
@@ -47,9 +47,9 @@ func testExamplesCompleteEnabled(t *testing.T) {
 		Upgrade:      true,
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: []string{"fixtures.us-west-1.tfvars"},
-		Vars: map[string]interface{} {
-			"name": testName,
-			"hostname": testName+".testing.cloudposse.co",
+		Vars: map[string]interface{}{
+			"name":     testName,
+			"hostname": testName + ".testing.cloudposse.co",
 		},
 	}
 
@@ -78,7 +78,7 @@ func testExamplesCompleteEnabled(t *testing.T) {
 func testExamplesCompleteDisabled(t *testing.T) {
 	t.Parallel()
 
-	testName := "s3-website-test-"+RandStringRunes(10)
+	testName := "s3-website-test-" + RandStringRunes(10)
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
@@ -90,9 +90,9 @@ func testExamplesCompleteDisabled(t *testing.T) {
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: []string{"fixtures.us-west-1.tfvars"},
 		Vars: map[string]interface{}{
-			"enabled": "false",
-			"name": testName,
-			"hostname": testName+".testing.cloudposse.co",
+			"enabled":  "false",
+			"name":     testName,
+			"hostname": testName + ".testing.cloudposse.co",
 		},
 	}
 
