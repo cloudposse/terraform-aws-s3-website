@@ -1,4 +1,5 @@
 locals {
+  enabled = module.this.enabled
   website_config = {
     redirect_all = [
       {
@@ -19,7 +20,7 @@ module "logs" {
   source                   = "cloudposse/s3-log-storage/aws"
   version                  = "0.20.0"
   attributes               = ["logs"]
-  enabled                  = var.logs_enabled
+  enabled                  = local.enabled && var.logs_enabled
   standard_transition_days = var.logs_standard_transition_days
   glacier_transition_days  = var.logs_glacier_transition_days
   expiration_days          = var.logs_expiration_days
@@ -36,6 +37,8 @@ module "default_label" {
 }
 
 resource "aws_s3_bucket" "default" {
+  count = local.enabled ? 1 : 0
+
   #bridgecrew:skip=BC_AWS_S3_1:The bucket used for a public static website. (https://docs.bridgecrew.io/docs/s3_1-acl-read-permissions-everyone)
   #bridgecrew:skip=BC_AWS_S3_14:Skipping `Ensure all data stored in the S3 bucket is securely encrypted at rest` check until bridgecrew will support dynamic blocks (https://github.com/bridgecrewio/checkov/issues/776).
   #bridgecrew:skip=CKV_AWS_52:Skipping `Ensure S3 bucket has MFA delete enabled` due to issue using `mfa_delete` by terraform (https://github.com/hashicorp/terraform-provider-aws/issues/629).
@@ -106,15 +109,19 @@ resource "aws_s3_bucket" "default" {
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
 # https://github.com/hashicorp/terraform/issues/10543
 resource "aws_s3_bucket_policy" "default" {
-  bucket = aws_s3_bucket.default.id
-  policy = data.aws_iam_policy_document.default.json
+  count = local.enabled ? 1 : 0
+
+  bucket = aws_s3_bucket.default[0].id
+  policy = data.aws_iam_policy_document.default[0].json
 }
 
 data "aws_iam_policy_document" "default" {
+  count = local.enabled ? 1 : 0
+
   statement {
     actions = ["s3:GetObject"]
 
-    resources = ["${aws_s3_bucket.default.arn}/*"]
+    resources = ["${aws_s3_bucket.default[0].arn}/*"]
 
     principals {
       type        = "AWS"
@@ -200,7 +207,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 data "aws_iam_policy_document" "replication" {
-  count = signum(length(var.replication_source_principal_arns))
+  count = local.enabled ? signum(length(var.replication_source_principal_arns)) : 0
 
   statement {
     principals {
@@ -216,25 +223,25 @@ data "aws_iam_policy_document" "replication" {
     ]
 
     resources = [
-      aws_s3_bucket.default.arn,
-      "${aws_s3_bucket.default.arn}/*"
+      aws_s3_bucket.default[0].arn,
+      "${aws_s3_bucket.default[0].arn}/*"
     ]
   }
 }
 
 data "aws_iam_policy_document" "deployment" {
-  count = length(keys(var.deployment_arns))
+  count = local.enabled ? length(keys(var.deployment_arns)) : 0
 
   statement {
     actions = var.deployment_actions
 
     resources = flatten([
       formatlist(
-        "${aws_s3_bucket.default.arn}%s",
+        "${aws_s3_bucket.default[0].arn}%s",
         var.deployment_arns[keys(var.deployment_arns)[count.index]]
       ),
       formatlist(
-        "${aws_s3_bucket.default.arn}%s/*",
+        "${aws_s3_bucket.default[0].arn}%s/*",
         var.deployment_arns[keys(var.deployment_arns)[count.index]]
       )
     ])
@@ -247,13 +254,15 @@ data "aws_iam_policy_document" "deployment" {
 }
 
 module "dns" {
-  source           = "cloudposse/route53-alias/aws"
-  version          = "0.12.0"
+  source  = "cloudposse/route53-alias/aws"
+  version = "0.12.0"
+
+  enabled          = local.enabled
   aliases          = compact([signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""])
   parent_zone_id   = var.parent_zone_id
   parent_zone_name = var.parent_zone_name
-  target_dns_name  = aws_s3_bucket.default.website_domain
-  target_zone_id   = aws_s3_bucket.default.hosted_zone_id
+  target_dns_name  = join("", aws_s3_bucket.default.*.website_domain)
+  target_zone_id   = join("", aws_s3_bucket.default.*.hosted_zone_id)
 
   context = module.this.context
 }
