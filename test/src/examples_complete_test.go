@@ -88,7 +88,7 @@ func testExamplesCompleteDisabled(t *testing.T) {
 			"TF_CLI_ARGS": "-state=terraform-disabled-test.tfstate",
 		},
 		// Variables to pass to our Terraform code using -var-file options
-		VarFiles: []string{"fixtures.us-east-2.tfvars"},
+		VarFiles: []string{"fixtures.us-west-1.tfvars"},
 		Vars: map[string]interface{}{
 			"enabled": "false",
 		},
