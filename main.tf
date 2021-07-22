@@ -1,7 +1,7 @@
 locals {
-  enabled = module.this.enabled
+  enabled    = module.this.enabled
   bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default.*.id)}"
-  
+
   website_config = {
     redirect_all = [
       {
