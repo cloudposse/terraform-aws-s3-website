@@ -1,5 +1,7 @@
 locals {
   enabled = module.this.enabled
+  bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default.*.id)}"
+  
   website_config = {
     redirect_all = [
       {
@@ -129,6 +131,28 @@ data "aws_iam_policy_document" "default" {
     }
   }
 
+  dynamic "statement" {
+    for_each = var.allow_ssl_requests_only ? [1] : []
+
+    content {
+      sid       = "ForceSSLOnlyAccess"
+      effect    = "Deny"
+      actions   = ["s3:*"]
+      resources = [local.bucket_arn, "${local.bucket_arn}/*"]
+
+      principals {
+        identifiers = ["*"]
+        type        = "*"
+      }
+
+      condition {
+        test     = "Bool"
+        values   = ["false"]
+        variable = "aws:SecureTransport"
+      }
+    }
+  }
+
   # Support replication ARNs
   dynamic "statement" {
     for_each = flatten(data.aws_iam_policy_document.replication.*.statement)
@@ -252,6 +276,8 @@ data "aws_iam_policy_document" "deployment" {
     }
   }
 }
+
+data "aws_partition" "current" {}
 
 module "dns" {
   source  = "cloudposse/route53-alias/aws"

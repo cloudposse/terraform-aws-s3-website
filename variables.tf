@@ -152,3 +152,9 @@ variable "encryption_enabled" {
   default     = false
   description = "When set to 'true' the resource will have AES256 encryption enabled by default"
 }
+
+variable "allow_ssl_requests_only" {
+  type        = bool
+  default     = false
+  description = "Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests"
+}
