@@ -281,7 +281,7 @@ data "aws_partition" "current" {}
 
 module "dns" {
   source  = "cloudposse/route53-alias/aws"
-  version = "0.12.0"
+  version = "0.13.0"
 
   enabled          = local.enabled
   aliases          = compact([signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""])
