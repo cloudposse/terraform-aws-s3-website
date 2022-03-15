@@ -2,20 +2,20 @@ locals {
   enabled    = module.this.enabled
   bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default.*.id)}"
 
-  website_config = {
-    redirect_all = [
-      {
-        redirect_all_requests_to = var.redirect_all_requests_to
-      }
-    ]
-    default = [
-      {
-        index_document = var.index_document
-        error_document = var.error_document
-        routing_rules  = var.routing_rules
-      }
-    ]
-  }
+  # website_config = {
+  #   redirect_all = [
+  #     {
+  #       redirect_all_requests_to = var.redirect_all_requests_to
+  #     }
+  #   ]
+  #   default = [
+  #     {
+  #       index_document = var.index_document
+  #       error_document = var.error_document
+  #       routing_rules  = var.routing_rules
+  #     }
+  #   ]
+  # }
 }
 
 module "logs" {
@@ -63,15 +63,15 @@ resource "aws_s3_bucket" "default" {
   #   }
   # }
 
-  dynamic "website" {
-    for_each = local.website_config[var.redirect_all_requests_to == "" ? "default" : "redirect_all"]
-    content {
-      error_document           = lookup(website.value, "error_document", null)
-      index_document           = lookup(website.value, "index_document", null)
-      redirect_all_requests_to = lookup(website.value, "redirect_all_requests_to", null)
-      routing_rules            = lookup(website.value, "routing_rules", null)
-    }
-  }
+  # dynamic "website" {
+  #   for_each = local.website_config[var.redirect_all_requests_to == "" ? "default" : "redirect_all"]
+  #   content {
+  #     error_document           = lookup(website.value, "error_document", null)
+  #     index_document           = lookup(website.value, "index_document", null)
+  #     redirect_all_requests_to = lookup(website.value, "redirect_all_requests_to", null)
+  #     routing_rules            = lookup(website.value, "routing_rules", null)
+  #   }
+  # }
 
   cors_rule {
     allowed_headers = var.cors_allowed_headers
@@ -136,6 +136,19 @@ resource "aws_s3_bucket_versioning" "default" {
   bucket = aws_s3_bucket.default.id
   versioning_configuration {
     status = var.versioning_enabled ? "Enabled" : "Suspended"
+  }
+}
+
+# S3 website configuration support for AWS provider v4
+resource "aws_s3_bucket_website_configuration" "default" {
+  bucket = aws_s3_bucket.default.bucket
+
+  index_document {
+    suffix = var.index_document
+  }
+
+  error_document {
+    key = var.error_document
   }
 }
 
