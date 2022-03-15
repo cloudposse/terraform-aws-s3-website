@@ -87,21 +87,21 @@ resource "aws_s3_bucket" "default" {
   #   enabled = var.versioning_enabled
   # }
 
-  lifecycle_rule {
-    id      = module.default_label.id
-    enabled = var.lifecycle_rule_enabled
-    prefix  = var.prefix
-    tags    = module.default_label.tags
+  # lifecycle_rule {
+  #   id      = module.default_label.id
+  #   enabled = var.lifecycle_rule_enabled
+  #   prefix  = var.prefix
+  #   tags    = module.default_label.tags
 
-    noncurrent_version_transition {
-      days          = var.noncurrent_version_transition_days
-      storage_class = "GLACIER"
-    }
+  #   noncurrent_version_transition {
+  #     days          = var.noncurrent_version_transition_days
+  #     storage_class = "GLACIER"
+  #   }
 
-    noncurrent_version_expiration {
-      days = var.noncurrent_version_expiration_days
-    }
-  }
+  #   noncurrent_version_expiration {
+  #     days = var.noncurrent_version_expiration_days
+  #   }
+  # }
 
   dynamic "server_side_encryption_configuration" {
     for_each = var.encryption_enabled ? ["true"] : []
@@ -162,6 +162,32 @@ resource "aws_s3_bucket_cors_configuration" "default" {
     allowed_origins = var.cors_allowed_origins
     expose_headers  = var.cors_expose_headers
     max_age_seconds = var.cors_max_age_seconds
+  }
+}
+
+# S3 lifecycle configuration support for AWS provider v4
+resource "aws_s3_bucket_lifecycle_configuration" "default" {
+  depends_on = [aws_s3_bucket_versioning.default]
+
+  bucket = aws_s3_bucket.default.bucket
+
+  rule {
+    id = module.default_label.id
+
+    filter {
+      prefix = var.prefix
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = var.noncurrent_version_expiration_days
+    }
+
+    noncurrent_version_transition {
+      noncurrent_days = var.noncurrent_version_transition_days
+      storage_class   = "GLACIER"
+    }
+
+    status = var.lifecycle_rule_enabled ? "Enabled" : "Disabled"
   }
 }
 
