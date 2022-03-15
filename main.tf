@@ -44,18 +44,24 @@ resource "aws_s3_bucket" "default" {
   #bridgecrew:skip=BC_AWS_S3_1:The bucket used for a public static website. (https://docs.bridgecrew.io/docs/s3_1-acl-read-permissions-everyone)
   #bridgecrew:skip=BC_AWS_S3_14:Skipping `Ensure all data stored in the S3 bucket is securely encrypted at rest` check until bridgecrew will support dynamic blocks (https://github.com/bridgecrewio/checkov/issues/776).
   #bridgecrew:skip=CKV_AWS_52:Skipping `Ensure S3 bucket has MFA delete enabled` due to issue using `mfa_delete` by terraform (https://github.com/hashicorp/terraform-provider-aws/issues/629).
-  #acl           = "public-read"
+
+  # DEPRECATED
+
+  #acl           = "public-read"  
+
   bucket        = var.hostname
   tags          = module.default_label.tags
   force_destroy = var.force_destroy
 
-  dynamic "logging" {
-    for_each = var.logs_enabled ? ["true"] : []
-    content {
-      target_bucket = module.logs.bucket_id
-      target_prefix = module.logs.prefix
-    }
-  }
+  # DEPRECATED
+
+  # dynamic "logging" {
+  #   for_each = var.logs_enabled ? ["true"] : []
+  #   content {
+  #     target_bucket = module.logs.bucket_id
+  #     target_prefix = module.logs.prefix
+  #   }
+  # }
 
   dynamic "website" {
     for_each = local.website_config[var.redirect_all_requests_to == "" ? "default" : "redirect_all"]
@@ -108,9 +114,19 @@ resource "aws_s3_bucket" "default" {
   }
 }
 
+# s3 acl resource support for AWS provider V4
 resource "aws_s3_bucket_acl" "default" {
   bucket = aws_s3_bucket.default.id
   acl    = "public-read"
+}
+
+# s3 logging resource support for AWS provider v4
+resource "aws_s3_bucket_logging" "default" {
+  count  = var.logs_enabled ? 1 : 0
+  bucket = aws_s3_bucket.default.id
+
+  target_bucket = module.logs.bucket_id
+  target_prefix = module.logs.prefix
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
