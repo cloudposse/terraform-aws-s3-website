@@ -81,9 +81,11 @@ resource "aws_s3_bucket" "default" {
     max_age_seconds = var.cors_max_age_seconds
   }
 
-  versioning {
-    enabled = var.versioning_enabled
-  }
+  # DEPRECATED
+
+  # versioning {
+  #   enabled = var.versioning_enabled
+  # }
 
   lifecycle_rule {
     id      = module.default_label.id
@@ -114,19 +116,27 @@ resource "aws_s3_bucket" "default" {
   }
 }
 
-# s3 acl resource support for AWS provider V4
+# S3 acl resource support for AWS provider V4
 resource "aws_s3_bucket_acl" "default" {
   bucket = aws_s3_bucket.default.id
   acl    = "public-read"
 }
 
-# s3 logging resource support for AWS provider v4
+# S3 logging resource support for AWS provider v4
 resource "aws_s3_bucket_logging" "default" {
   count  = var.logs_enabled ? 1 : 0
   bucket = aws_s3_bucket.default.id
 
   target_bucket = module.logs.bucket_id
   target_prefix = module.logs.prefix
+}
+
+# S3 versioning resource support for AWS provider v4
+resource "aws_s3_bucket_versioning" "default" {
+  bucket = aws_s3_bucket.default.id
+  versioning_configuration {
+    status = var.versioning_enabled ? "Enabled" : "Suspended"
+  }
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
