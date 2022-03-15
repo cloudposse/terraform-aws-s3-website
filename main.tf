@@ -103,17 +103,17 @@ resource "aws_s3_bucket" "default" {
   #   }
   # }
 
-  dynamic "server_side_encryption_configuration" {
-    for_each = var.encryption_enabled ? ["true"] : []
+  # dynamic "server_side_encryption_configuration" {
+  #   for_each = var.encryption_enabled ? ["true"] : []
 
-    content {
-      rule {
-        apply_server_side_encryption_by_default {
-          sse_algorithm = "AES256"
-        }
-      }
-    }
-  }
+  #   content {
+  #     rule {
+  #       apply_server_side_encryption_by_default {
+  #         sse_algorithm = "AES256"
+  #       }
+  #     }
+  #   }
+  # }
 }
 
 # S3 acl resource support for AWS provider V4
@@ -188,6 +188,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "default" {
     }
 
     status = var.lifecycle_rule_enabled ? "Enabled" : "Disabled"
+  }
+}
+
+# S3 server side encryption support for AWS provider v4
+resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
+  bucket = aws_s3_bucket.default.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
   }
 }
 
