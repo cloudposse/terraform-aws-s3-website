@@ -18,18 +18,50 @@ locals {
   # }
 }
 
-module "logs" {
-  source                   = "cloudposse/s3-log-storage/aws"
-  version                  = "0.20.0"
-  attributes               = ["logs"]
-  enabled                  = local.enabled && var.logs_enabled
-  standard_transition_days = var.logs_standard_transition_days
-  glacier_transition_days  = var.logs_glacier_transition_days
-  expiration_days          = var.logs_expiration_days
-  force_destroy            = var.force_destroy
+# module "logs" {
+#   source                   = "cloudposse/s3-log-storage/aws"
+#   version                  = "0.20.0"
+#   attributes               = ["logs"]
+#   enabled                  = local.enabled && var.logs_enabled
+#   standard_transition_days = var.logs_standard_transition_days
+#   glacier_transition_days  = var.logs_glacier_transition_days
+#   expiration_days          = var.logs_expiration_days
+#   force_destroy            = var.force_destroy
 
-  context = module.this.context
+#   context = module.this.context
+# }
+
+module "logs" {
+  source     = "cloudposse/s3-log-storage/aws"
+  version    = "0.28.0"
+  attributes = ["logs"]
+  context    = module.this.context
+  lifecycle_configuration_rules = [
+    {
+      abort_incomplete_multipart_upload_days = 1
+      enabled                                = true
+      expiration = {
+        days = 90
+      }
+      filter_and = {
+        prefix = ""
+      }
+      id = "logs"
+      noncurrent_version_expiration = {
+        newer_noncurrent_versions = 2
+        noncurrent_days           = 30
+      }
+      noncurrent_version_transition = []
+      transition = [
+        {
+          days          = 30
+          storage_class = "GLACIER"
+        },
+      ]
+    }
+  ]
 }
+
 
 module "default_label" {
   source     = "cloudposse/label/null"
