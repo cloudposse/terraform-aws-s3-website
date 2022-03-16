@@ -118,14 +118,14 @@ resource "aws_s3_bucket" "default" {
 
 # S3 acl resource support for AWS provider V4
 resource "aws_s3_bucket_acl" "default" {
-  bucket = aws_s3_bucket.default.id
+  bucket = aws_s3_bucket.default[0].id
   acl    = "public-read"
 }
 
 # S3 logging resource support for AWS provider v4
 resource "aws_s3_bucket_logging" "default" {
   for_each = var.logs_enabled ? ["true"] : []
-  bucket   = aws_s3_bucket.default.id
+  bucket   = aws_s3_bucket.default[0].id
 
   target_bucket = module.logs.bucket_id
   target_prefix = module.logs.prefix
@@ -133,7 +133,7 @@ resource "aws_s3_bucket_logging" "default" {
 
 # S3 versioning resource support for AWS provider v4
 resource "aws_s3_bucket_versioning" "default" {
-  bucket = aws_s3_bucket.default.id
+  bucket = aws_s3_bucket.default[0].id
   versioning_configuration {
     status = var.versioning_enabled ? "Enabled" : "Suspended"
   }
@@ -141,7 +141,7 @@ resource "aws_s3_bucket_versioning" "default" {
 
 # S3 website configuration support for AWS provider v4
 resource "aws_s3_bucket_website_configuration" "default" {
-  bucket = aws_s3_bucket.default.bucket
+  bucket = aws_s3_bucket.default[0].bucket
 
   index_document {
     suffix = var.index_document
@@ -154,7 +154,7 @@ resource "aws_s3_bucket_website_configuration" "default" {
 
 # S3 cors configuration support for AWS provider v4
 resource "aws_s3_bucket_cors_configuration" "default" {
-  bucket = aws_s3_bucket.default.bucket
+  bucket = aws_s3_bucket.default[0].bucket
 
   cors_rule {
     allowed_headers = var.cors_allowed_headers
@@ -169,7 +169,7 @@ resource "aws_s3_bucket_cors_configuration" "default" {
 resource "aws_s3_bucket_lifecycle_configuration" "default" {
   depends_on = [aws_s3_bucket_versioning.default]
 
-  bucket = aws_s3_bucket.default.bucket
+  bucket = aws_s3_bucket.default[0].bucket
 
   rule {
     id = module.default_label.id
@@ -194,7 +194,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "default" {
 # S3 server side encryption support for AWS provider v4
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   for_each = var.encryption_enabled ? ["true"] : []
-  bucket   = aws_s3_bucket.default.bucket
+  bucket   = aws_s3_bucket.default[0].bucket
 
   rule {
     apply_server_side_encryption_by_default {
