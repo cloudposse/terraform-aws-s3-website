@@ -156,7 +156,7 @@ resource "aws_s3_bucket_acl" "default" {
 
 # S3 logging resource support for AWS provider v4
 resource "aws_s3_bucket_logging" "default" {
-  for_each = var.logs_enabled ? ["true"] : []
+  for_each = var.logs_enabled ? toset(["true"]) : toset([])
   bucket   = aws_s3_bucket.default[0].id
 
   target_bucket = module.logs.bucket_id
@@ -225,7 +225,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "default" {
 
 # S3 server side encryption support for AWS provider v4
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
-  for_each = var.encryption_enabled ? ["true"] : []
+  for_each = var.encryption_enabled ? toset(["true"]) : toset([])
   bucket   = aws_s3_bucket.default[0].bucket
 
   rule {
