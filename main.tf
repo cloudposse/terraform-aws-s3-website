@@ -1,35 +1,7 @@
 locals {
   enabled    = module.this.enabled
   bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default.*.id)}"
-
-  # website_config = {
-  #   redirect_all = [
-  #     {
-  #       redirect_all_requests_to = var.redirect_all_requests_to
-  #     }
-  #   ]
-  #   default = [
-  #     {
-  #       index_document = var.index_document
-  #       error_document = var.error_document
-  #       routing_rules  = var.routing_rules
-  #     }
-  #   ]
-  # }
 }
-
-# module "logs" {
-#   source                   = "cloudposse/s3-log-storage/aws"
-#   version                  = "0.20.0"
-#   attributes               = ["logs"]
-#   enabled                  = local.enabled && var.logs_enabled
-#   standard_transition_days = var.logs_standard_transition_days
-#   glacier_transition_days  = var.logs_glacier_transition_days
-#   expiration_days          = var.logs_expiration_days
-#   force_destroy            = var.force_destroy
-
-#   context = module.this.context
-# }
 
 module "logs" {
   source     = "cloudposse/s3-log-storage/aws"
@@ -77,75 +49,9 @@ resource "aws_s3_bucket" "default" {
   #bridgecrew:skip=BC_AWS_S3_14:Skipping `Ensure all data stored in the S3 bucket is securely encrypted at rest` check until bridgecrew will support dynamic blocks (https://github.com/bridgecrewio/checkov/issues/776).
   #bridgecrew:skip=CKV_AWS_52:Skipping `Ensure S3 bucket has MFA delete enabled` due to issue using `mfa_delete` by terraform (https://github.com/hashicorp/terraform-provider-aws/issues/629).
 
-  # DEPRECATED
-
-  #acl           = "public-read"  
-
   bucket        = var.hostname
   tags          = module.default_label.tags
   force_destroy = var.force_destroy
-
-  # DEPRECATED
-
-  # dynamic "logging" {
-  #   for_each = var.logs_enabled ? ["true"] : []
-  #   content {
-  #     target_bucket = module.logs.bucket_id
-  #     target_prefix = module.logs.prefix
-  #   }
-  # }
-
-  # dynamic "website" {
-  #   for_each = local.website_config[var.redirect_all_requests_to == "" ? "default" : "redirect_all"]
-  #   content {
-  #     error_document           = lookup(website.value, "error_document", null)
-  #     index_document           = lookup(website.value, "index_document", null)
-  #     redirect_all_requests_to = lookup(website.value, "redirect_all_requests_to", null)
-  #     routing_rules            = lookup(website.value, "routing_rules", null)
-  #   }
-  # }
-
-  # cors_rule {
-  #   allowed_headers = var.cors_allowed_headers
-  #   allowed_methods = var.cors_allowed_methods
-  #   allowed_origins = var.cors_allowed_origins
-  #   expose_headers  = var.cors_expose_headers
-  #   max_age_seconds = var.cors_max_age_seconds
-  # }
-
-  # DEPRECATED
-
-  # versioning {
-  #   enabled = var.versioning_enabled
-  # }
-
-  # lifecycle_rule {
-  #   id      = module.default_label.id
-  #   enabled = var.lifecycle_rule_enabled
-  #   prefix  = var.prefix
-  #   tags    = module.default_label.tags
-
-  #   noncurrent_version_transition {
-  #     days          = var.noncurrent_version_transition_days
-  #     storage_class = "GLACIER"
-  #   }
-
-  #   noncurrent_version_expiration {
-  #     days = var.noncurrent_version_expiration_days
-  #   }
-  # }
-
-  # dynamic "server_side_encryption_configuration" {
-  #   for_each = var.encryption_enabled ? ["true"] : []
-
-  #   content {
-  #     rule {
-  #       apply_server_side_encryption_by_default {
-  #         sse_algorithm = "AES256"
-  #       }
-  #     }
-  #   }
-  # }
 }
 
 # S3 acl resource support for AWS provider V4
