@@ -106,6 +106,22 @@ resource "aws_s3_bucket" "default" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      server_side_encryption_configuration
+    ]
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "cdn_bucket" {
+  bucket = aws_s3_bucket.default.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
 }
 
 # AWS only supports a single bucket policy on a bucket. You can combine multiple Statements into a single policy, but not attach multiple policies.
