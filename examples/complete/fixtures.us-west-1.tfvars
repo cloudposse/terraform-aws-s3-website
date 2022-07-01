@@ -13,4 +13,6 @@ parent_zone_name = "testing.cloudposse.co"
 
 force_destroy = true
 
+force_destroy_enabled = true
+
 encryption_enabled = true
