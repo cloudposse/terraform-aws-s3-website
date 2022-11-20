@@ -169,7 +169,7 @@ Available targets:
 |------|--------|---------|
 | <a name="module_default_label"></a> [default\_label](#module\_default\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_dns"></a> [dns](#module\_dns) | cloudposse/route53-alias/aws | 0.13.0 |
-| <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/s3-log-storage/aws | 0.20.0 |
+| <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/s3-log-storage/aws | 1.0.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -416,7 +416,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-
+<!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=website
@@ -447,3 +447,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-s3-website
   [share_email]: mailto:?subject=terraform-aws-s3-website&body=https://github.com/cloudposse/terraform-aws-s3-website
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-s3-website?pixel&cs=github&cm=readme&an=terraform-aws-s3-website
+<!-- markdownlint-restore -->
