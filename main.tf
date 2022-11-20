@@ -20,7 +20,7 @@ locals {
 
 module "logs" {
   source                   = "cloudposse/s3-log-storage/aws"
-  version                  = "0.20.0"
+  version                  = "1.0.0"
   attributes               = ["logs"]
   enabled                  = local.enabled && var.logs_enabled
   standard_transition_days = var.logs_standard_transition_days
