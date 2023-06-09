@@ -1,6 +1,6 @@
 locals {
   enabled    = module.this.enabled
-  bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default.*.id)}"
+  bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${join("", aws_s3_bucket.default[*].id)}"
 
   website_config = {
     redirect_all = [
@@ -155,7 +155,7 @@ data "aws_iam_policy_document" "default" {
 
   # Support replication ARNs
   dynamic "statement" {
-    for_each = flatten(data.aws_iam_policy_document.replication.*.statement)
+    for_each = flatten(data.aws_iam_policy_document.replication[*].statement)
     content {
       actions       = lookup(statement.value, "actions", null)
       effect        = lookup(statement.value, "effect", null)
@@ -193,7 +193,7 @@ data "aws_iam_policy_document" "default" {
 
   # Support deployment ARNs
   dynamic "statement" {
-    for_each = flatten(data.aws_iam_policy_document.deployment.*.statement)
+    for_each = flatten(data.aws_iam_policy_document.deployment[*].statement)
     content {
       actions       = lookup(statement.value, "actions", null)
       effect        = lookup(statement.value, "effect", null)
@@ -287,8 +287,8 @@ module "dns" {
   aliases          = compact([signum(length(var.parent_zone_id)) == 1 || signum(length(var.parent_zone_name)) == 1 ? var.hostname : ""])
   parent_zone_id   = var.parent_zone_id
   parent_zone_name = var.parent_zone_name
-  target_dns_name  = join("", aws_s3_bucket.default.*.website_domain)
-  target_zone_id   = join("", aws_s3_bucket.default.*.hosted_zone_id)
+  target_dns_name  = join("", aws_s3_bucket.default[*].website_domain)
+  target_zone_id   = join("", aws_s3_bucket.default[*].hosted_zone_id)
 
   context = module.this.context
 }
