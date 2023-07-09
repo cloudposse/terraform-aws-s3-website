@@ -111,7 +111,7 @@ resource "aws_s3_bucket" "default" {
 # https://github.com/hashicorp/terraform/issues/10543
 resource "aws_s3_bucket_policy" "default" {
   count = local.enabled ? 1 : 0
-  
+
   depends_on = [aws_s3_bucket_public_access_block.s3_allow_public_access]
 
   bucket = aws_s3_bucket.default[0].id
@@ -293,7 +293,7 @@ module "dns" {
 
   context = module.this.context
 }
-  
+
 resource "aws_s3_bucket_public_access_block" "s3_allow_public_access" {
   bucket = aws_s3_bucket.default[0].id
 
