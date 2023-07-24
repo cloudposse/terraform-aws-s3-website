@@ -41,6 +41,12 @@ module "default_label" {
 }
 
 resource "aws_s3_bucket_public_access_block" "s3_allow_public_access" {
+
+  # The bucket used for a public static website.
+  #bridgecrew:skip=BC_AWS_S3_19:Skipping `Ensure S3 bucket has block public ACLS enabled`
+  #bridgecrew:skip=BC_AWS_S3_20:Skipping `Ensure S3 Bucket BlockPublicPolicy is set to True`
+  #bridgecrew:skip=BC_AWS_S3_21:Skipping `Ensure S3 bucket IgnorePublicAcls is set to True`
+  #bridgecrew:skip=BC_AWS_S3_22:Skipping `Ensure S3 bucket RestrictPublicBucket is set to True`
   bucket = aws_s3_bucket.default[0].id
 
   block_public_acls       = false
