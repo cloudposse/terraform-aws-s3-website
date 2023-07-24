@@ -41,6 +41,7 @@ module "default_label" {
 }
 
 resource "aws_s3_bucket_public_access_block" "s3_allow_public_access" {
+  count = local.enabled ? 1 : 0
 
   # The bucket used for a public static website.
   #bridgecrew:skip=BC_AWS_S3_19:Skipping `Ensure S3 bucket has block public ACLS enabled`
@@ -56,8 +57,9 @@ resource "aws_s3_bucket_public_access_block" "s3_allow_public_access" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_bucket_ownership_controls" {
-  bucket = aws_s3_bucket.default[0].id
+  count = local.enabled ? 1 : 0
 
+  bucket = aws_s3_bucket.default[0].id
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
@@ -139,7 +141,7 @@ resource "aws_s3_bucket_policy" "default" {
   bucket = aws_s3_bucket.default[0].id
   policy = data.aws_iam_policy_document.default[0].json
 
-  depends_on = [aws_s3_bucket_public_access_block.s3_allow_public_access]
+  depends_on = [aws_s3_bucket_public_access_block.s3_allow_public_access[0]]
 }
 
 data "aws_iam_policy_document" "default" {
