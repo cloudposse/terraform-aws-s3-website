@@ -4,7 +4,7 @@
 #
 
 # Name of this project
-name: terraform-aws-s3-website
+name: ~~terraform-aws-s3-website~~ OBSOLETE
 # Tags of this project
 tags:
   - aws
@@ -50,6 +50,8 @@ related:
     url: "https://github.com/cloudposse/terraform-aws-lb-s3-bucket"
 # Short description of this project
 description: |-
+  **As of July, 2023 this module is obsolete.** `terraform-aws-s3-website` offers no value beyond [the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), so Cloud Posse will no longer maintain this project.  
+
   Terraform module to provision S3-backed Websites.
   **IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
 # How to use this project

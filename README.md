@@ -1,6 +1,8 @@
 
 <!-- markdownlint-disable -->
-# terraform-aws-s3-website [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# ~~terraform-aws-s3-website~~ OBSOLETE
+
+ [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
@@ -27,6 +29,8 @@
 
 
 -->
+
+**As of July, 2023 this module is obsolete.** `terraform-aws-s3-website` offers no value beyond [the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), so Cloud Posse will no longer maintain this project.  
 
 Terraform module to provision S3-backed Websites.
 **IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
@@ -438,11 +442,11 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
   [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-s3-website&url=https://github.com/cloudposse/terraform-aws-s3-website
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-s3-website&url=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_twitter]: https://twitter.com/intent/tweet/?text=~~terraform-aws-s3-website~~+OBSOLETE&url=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=~~terraform-aws-s3-website~~+OBSOLETE&url=https://github.com/cloudposse/terraform-aws-s3-website
   [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-aws-s3-website
   [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-aws-s3-website
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-s3-website
-  [share_email]: mailto:?subject=terraform-aws-s3-website&body=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_email]: mailto:?subject=~~terraform-aws-s3-website~~+OBSOLETE&body=https://github.com/cloudposse/terraform-aws-s3-website
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-s3-website?pixel&cs=github&cm=readme&an=terraform-aws-s3-website
 <!-- markdownlint-restore -->
