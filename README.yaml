@@ -50,7 +50,15 @@ related:
     url: "https://github.com/cloudposse/terraform-aws-lb-s3-bucket"
 # Short description of this project
 description: |-
-  **As of July, 2023 this module is obsolete.** `terraform-aws-s3-website` offers no value beyond [the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), so Cloud Posse will no longer maintain this project.  
+  
+  ## Deprecated
+  
+  **As of July, 2023 this module is deprecated.** `terraform-aws-s3-website` offers little value beyond [
+  the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), 
+  so Cloud Posse is phasing out support for this project.  Users are advised to migrate to 
+  [terraform-aws-s3-bucket](https://github.com/cloudposse/terraform-aws-s3-bucket) to manage the S3 bucket
+  (including logging) and [terraform-aws-route53-alias](https://github.com/cloudposse/terraform-aws-route53-alias) 
+  to register the website hostname in Route53. Feature requests should be directed to those modules.
 
   Terraform module to provision S3-backed Websites.
   **IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
