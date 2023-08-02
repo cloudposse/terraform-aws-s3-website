@@ -1,6 +1,8 @@
 
 <!-- markdownlint-disable -->
-# terraform-aws-s3-website [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# ~~terraform-aws-s3-website~~ OBSOLETE
+
+ [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg)](https://github.com/cloudposse/terraform-aws-s3-website/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
@@ -27,6 +29,16 @@
 
 
 -->
+
+
+## Deprecated
+
+**As of July, 2023 this module is deprecated.** `terraform-aws-s3-website` offers little value beyond [
+the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), 
+so Cloud Posse is phasing out support for this project.  Users are advised to migrate to 
+[terraform-aws-s3-bucket](https://github.com/cloudposse/terraform-aws-s3-bucket) to manage the S3 bucket
+(including logging) and [terraform-aws-route53-alias](https://github.com/cloudposse/terraform-aws-route53-alias) 
+to register the website hostname in Route53. Feature requests should be directed to those modules.
 
 Terraform module to provision S3-backed Websites.
 **IMPORTANT:** This module provisions a globally accessible S3 bucket for unauthenticated users because it is designed for hosting public static websites. Normally, AWS recommends that S3 buckets should not publicly accessible in order to protect S3 data from unauthorized users.
@@ -89,10 +101,6 @@ We highly recommend that in your code you pin the version to the exact version y
 using so that your infrastructure remains stable, and update versions in a
 systematic way so that they do not catch you by surprise.
 
-Also, because of a bug in the Terraform registry ([hashicorp/terraform#21417](https://github.com/hashicorp/terraform/issues/21417)),
-the registry shows many of our inputs as required when in fact they are optional.
-The table below correctly indicates which inputs are required.
-
 
 #### Create s3 website bucket
 
@@ -153,15 +161,15 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0, < 4.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0, < 4.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9 |
 
 ## Modules
 
@@ -169,7 +177,7 @@ Available targets:
 |------|--------|---------|
 | <a name="module_default_label"></a> [default\_label](#module\_default\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_dns"></a> [dns](#module\_dns) | cloudposse/route53-alias/aws | 0.13.0 |
-| <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/s3-log-storage/aws | 0.20.0 |
+| <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/s3-log-storage/aws | 1.4.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -177,7 +185,9 @@ Available targets:
 | Name | Type |
 |------|------|
 | [aws_s3_bucket.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_ownership_controls.s3_bucket_ownership_controls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
 | [aws_s3_bucket_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_public_access_block.s3_allow_public_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_iam_policy_document.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.replication](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -440,11 +450,11 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
   [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-s3-website&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-s3-website&url=https://github.com/cloudposse/terraform-aws-s3-website
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-s3-website&url=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_twitter]: https://twitter.com/intent/tweet/?text=~~terraform-aws-s3-website~~+OBSOLETE&url=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=~~terraform-aws-s3-website~~+OBSOLETE&url=https://github.com/cloudposse/terraform-aws-s3-website
   [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-aws-s3-website
   [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-aws-s3-website
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-s3-website
-  [share_email]: mailto:?subject=terraform-aws-s3-website&body=https://github.com/cloudposse/terraform-aws-s3-website
+  [share_email]: mailto:?subject=~~terraform-aws-s3-website~~+OBSOLETE&body=https://github.com/cloudposse/terraform-aws-s3-website
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-s3-website?pixel&cs=github&cm=readme&an=terraform-aws-s3-website
 <!-- markdownlint-restore -->
