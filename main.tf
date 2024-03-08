@@ -20,7 +20,7 @@ locals {
 
 module "logs" {
   source  = "cloudposse/s3-log-storage/aws"
-  version = "1.4.2"
+  version = "1.4.3"
 
   enabled = local.enabled && var.logs_enabled
 
