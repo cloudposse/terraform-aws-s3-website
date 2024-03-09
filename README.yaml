@@ -26,12 +26,17 @@ license: "APACHE2"
 github_repo: cloudposse/terraform-aws-s3-website
 # Badges to display
 badges:
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg"
-    url: "https://github.com/cloudposse/terraform-aws-s3-website/releases/latest"
-  - name: "Slack Community"
-    image: "https://slack.cloudposse.com/badge.svg"
-    url: "https://slack.cloudposse.com"
+  - name: Latest Release
+    image: https://img.shields.io/github/release/cloudposse/terraform-aws-s3-website.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-aws-s3-website/releases/latest
+  - name: Last Updated
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-aws-s3-website.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-aws-s3-website/commits
+  - name: Slack Community
+    image: https://slack.cloudposse.com/for-the-badge.svg
+    url: https://slack.cloudposse.com
+
+# List any related terraform modules that this module may be used with or that this module depends on.
 related:
   - name: "terraform-aws-cloudfront-s3-cdn"
     description: "Terraform module to easily provision CloudFront CDN backed by an S3 origin"
@@ -49,10 +54,10 @@ related:
     description: "Terraform module to provision an S3 bucket with built in IAM policy to allow AWS Load Balancers to ship access logs"
     url: "https://github.com/cloudposse/terraform-aws-lb-s3-bucket"
 # Short description of this project
-description: |-
-  
+description: |2-
+
   ## Deprecated
-  
+
   **As of July, 2023 this module is deprecated.** `terraform-aws-s3-website` offers little value beyond [
   the `terraform-aws-s3-bucket` module](https://github.com/cloudposse/terraform-aws-s3-bucket), 
   so Cloud Posse is phasing out support for this project.  Users are advised to migrate to 
@@ -108,10 +113,4 @@ include:
   - "docs/targets.md"
   - "docs/terraform.md"
 # Contributors to this project
-contributors:
-  - name: "Erik Osterman"
-    github: "osterman"
-  - name: "Andriy Knysh"
-    github: "aknysh"
-  - name: "Vladimir"
-    github: "SweetOps"
+contributors: []
