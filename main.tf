@@ -180,6 +180,34 @@ data "aws_iam_policy_document" "default" {
     }
   }
 
+  dynamic "statement" {
+    for_each = flatten(var.trusted_ips) != [] ? [1] : []
+
+    # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-ip.html
+    content {
+      sid       = "AllowTrustedIPsOnly"
+      effect    = "Deny"
+      actions   = ["s3:*"]
+      resources = [local.bucket_arn, "${local.bucket_arn}/*"]
+
+      principals {
+        identifiers = ["*"]
+        type        = "*"
+      }
+
+      condition {
+        test     = "NotIpAddress"
+        values   = var.trusted_ips
+        variable = "aws:SourceIp"
+      }
+      condition {
+        test     = "Bool"
+        values   = ["false"]
+        variable = "aws:ViaAWSService"
+      }
+    }
+  }
+
   # Support replication ARNs
   dynamic "statement" {
     for_each = flatten(data.aws_iam_policy_document.replication[*].statement)
