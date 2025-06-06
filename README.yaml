@@ -34,7 +34,7 @@ badges:
     url: https://github.com/cloudposse/terraform-aws-s3-website/commits
   - name: Slack Community
     image: https://slack.cloudposse.com/for-the-badge.svg
-    url: https://slack.cloudposse.com
+    url: https://cloudposse.com/slack
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:
@@ -109,8 +109,5 @@ references:
   - name: "Hosting Websites on Amazon S3"
     description: "Example: setting up a Static Website Using a Custom Domain"
     url: "http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html"
-include:
-  - "docs/targets.md"
-  - "docs/terraform.md"
-# Contributors to this project
+include: []
 contributors: []
