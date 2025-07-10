@@ -158,3 +158,9 @@ variable "allow_ssl_requests_only" {
   default     = false
   description = "Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests"
 }
+
+variable "trusted_ips" {
+  type        = list(string)
+  default     = []
+  description = "(Optional) List of IP CIDRs which can access the S3 website"
+}
